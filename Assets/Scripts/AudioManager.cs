@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
     
-
-    void Start()
-    {
-        
-    }
+    public AudioClipSO audioClips;
 
     // Update is called once per frame
     void Update()
