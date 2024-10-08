@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fdbe1e44ef24714f9e29dcef1e5f6db, type: 3}
   m_Name: AudioClip
   m_EditorClassIdentifier: 
+  _name: What the sigma this audio for?
+  _desc: What the sigma this audio for?
+  audioArray: []
+  mixerGroup: {fileID: 0}
