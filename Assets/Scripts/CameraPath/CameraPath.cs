@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +31,8 @@ public class CameraPoint
 
     public Vector3 position;
     public Quaternion rotation;
+    [Range(1, 179)]
+    public float fieldOfView = 60;
     public Vector3 handleprev;
     public Vector3 handlenext;
     public EnumCurveType curveTypeRotation;
@@ -38,10 +41,11 @@ public class CameraPoint
     public AnimationCurve positionCurve;
     public bool chained;
 
-    public CameraPoint(Vector3 pos, Quaternion rot)
+    public CameraPoint(Vector3 pos, Quaternion rot, float fov )
     {
         position = pos;
         rotation = rot;
+        fieldOfView = fov;
         handleprev = Vector3.back;
         handlenext = Vector3.forward;
         curveTypeRotation = EnumCurveType.EaseInAndOut;
@@ -276,6 +280,11 @@ public class CameraPath : MonoBehaviour
     private Quaternion GetLerpRotation(int pointIndex, float time)
     {
         return Quaternion.LerpUnclamped(points[pointIndex].rotation, points[GetNextIndex(pointIndex)].rotation, points[pointIndex].rotationCurve.Evaluate(time));
+    }
+
+    private float GetLerpFieldOfView(int pointIndex, float time)
+    {
+        return Mathf.Lerp(points[pointIndex].fieldOfView, points[GetNextIndex(pointIndex)].fieldOfView, points[pointIndex].rotationCurve.Evaluate(time));
     }
 
 #if UNITY_EDITOR
