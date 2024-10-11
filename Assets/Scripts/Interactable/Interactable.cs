@@ -52,7 +52,7 @@ public class Interactable : MonoBehaviour
         isFocus = false;
         player = null;
         hasInteracted = false;
-        //DisableOutlines();
+        // DisableOutlines();
     }
 
     /// <summary>
@@ -89,22 +89,22 @@ public class Interactable : MonoBehaviour
         Gizmos.DrawWireSphere(interactionTransform.position, radius);
     }
 
-    /*
-    private void DisableOutlines()
-    {
-        foreach (Outline outline in outlines)
-        {
-            outline.enabled = false;
-        }
-    }
+    
+    // private void DisableOutlines()
+    // {
+    //     foreach (Outline outline in outlines)
+    //     {
+    //         outline.enabled = false;
+    //     }
+    // }
 
-    private void EnableOutlines()
-    {
-        foreach (Outline outline in outlines)
-        {
-            outline.enabled = true;
-        }
-    }
-    */
+    // private void EnableOutlines()
+    // {
+    //     foreach (Outline outline in outlines)
+    //     {
+    //         outline.enabled = true;
+    //     }
+    // }
+    
 
 }
