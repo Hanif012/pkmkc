@@ -494,28 +494,28 @@ public class CameraPathInspectorEditor : Editor
             switch (waypointMode)
             {
                 case EnumNewWaypointMode.SceneCamera:
-                    t.points.Add(new CameraPoint(SceneView.lastActiveSceneView.camera.transform.position, SceneView.lastActiveSceneView.camera.transform.rotation));
+                    t.points.Add(new CameraPoint(SceneView.lastActiveSceneView.camera.transform.position, SceneView.lastActiveSceneView.camera.transform.rotation, SceneView.lastActiveSceneView.camera.fieldOfView));
                     break;
                 case EnumNewWaypointMode.LastWaypoint:
                     if (t.points.Count > 0)
-                        t.points.Add(new CameraPoint(t.points[t.points.Count - 1].position, t.points[t.points.Count - 1].rotation) { handlenext = t.points[t.points.Count - 1].handlenext, handleprev = t.points[t.points.Count - 1].handleprev });
+                        t.points.Add(new CameraPoint(t.points[t.points.Count - 1].position, t.points[t.points.Count - 1].rotation, t.points[t.points.Count - 1].fieldOfView ) { handlenext = t.points[t.points.Count - 1].handlenext, handleprev = t.points[t.points.Count - 1].handleprev });
                     else
                     {
-                        t.points.Add(new CameraPoint(Vector3.zero, Quaternion.identity));
+                        t.points.Add(new CameraPoint(Vector3.zero, Quaternion.identity, 60));
                         Debug.LogWarning("No previous waypoint found to place this waypoint, defaulting position to world center");
                     }
                     break;
                 case EnumNewWaypointMode.WaypointIndex:
                     if (t.points.Count > waypointIndex-1 && waypointIndex > 0)
-                        t.points.Add(new CameraPoint(t.points[waypointIndex-1].position, t.points[waypointIndex-1].rotation) { handlenext = t.points[waypointIndex-1].handlenext, handleprev = t.points[waypointIndex-1].handleprev });
+                        t.points.Add(new CameraPoint(t.points[waypointIndex-1].position, t.points[waypointIndex-1].rotation, t.points[waypointIndex-1].fieldOfView) { handlenext = t.points[waypointIndex-1].handlenext, handleprev = t.points[waypointIndex-1].handleprev });
                     else
                     {
-                        t.points.Add(new CameraPoint(Vector3.zero, Quaternion.identity));
+                        t.points.Add(new CameraPoint(Vector3.zero, Quaternion.identity, 60));
                         Debug.LogWarning("Waypoint index "+waypointIndex+" does not exist, defaulting position to world center");
                     }
                     break;
                 case EnumNewWaypointMode.WorldCenter:
-                    t.points.Add(new CameraPoint(Vector3.zero, Quaternion.identity));
+                    t.points.Add(new CameraPoint(Vector3.zero, Quaternion.identity, 60));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
