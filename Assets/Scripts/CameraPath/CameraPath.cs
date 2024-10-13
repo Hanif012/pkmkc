@@ -28,90 +28,111 @@ public enum LoopCompletionAction
 [System.Serializable]
 public class CameraPoint
 {
-
     public Vector3 position;
     public Quaternion rotation;
-    [Range(1, 179)]
-    public float fieldOfView = 60;
-    public Vector3 handleprev;
-    public Vector3 handlenext;
-    public EnumCurveType curveTypeRotation;
-    public AnimationCurve rotationCurve;
-    public EnumCurveType curveTypePosition;
-    public AnimationCurve positionCurve;
-    public bool chained;
+    [Range(1, 179)] public float fieldOfView = 60;
+    public Vector3 handleprev = Vector3.back;
+    public Vector3 handlenext = Vector3.forward;
+    public EnumCurveType curveTypeRotation = EnumCurveType.EaseInAndOut;
+    public AnimationCurve rotationCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    public EnumCurveType curveTypePosition = EnumCurveType.Linear;
+    public AnimationCurve positionCurve = AnimationCurve.Linear(0, 0, 1, 1);
+    public EnumCurveType curveTypeFOV = EnumCurveType.Linear;
+    public AnimationCurve fovCurve = AnimationCurve.Linear(0, 0, 1, 1);
+    public bool chained = true;
 
-    public CameraPoint(Vector3 pos, Quaternion rot, float fov )
+    public CameraPoint(Vector3 pos, Quaternion rot, float fov)
     {
         position = pos;
         rotation = rot;
         fieldOfView = fov;
-        handleprev = Vector3.back;
-        handlenext = Vector3.forward;
-        curveTypeRotation = EnumCurveType.EaseInAndOut;
-        rotationCurve = AnimationCurve.EaseInOut(0,0,1,1);
-        curveTypePosition = EnumCurveType.Linear;
-        positionCurve = AnimationCurve.Linear(0,0,1,1);
-        chained = true;
     }
 }
 
 public class CameraPath : MonoBehaviour
 {
-
+    [Header("Camera Settings")]
     public bool useMainCamera = true;
     public Camera selectedCamera;
     public bool lookAtTarget = false;
     public Transform target;
+
+    [Header("Playback Settings")]
     public bool playOnAwake = false;
     public float playOnAwakeTime = 10;
-    public List<CameraPoint> points = new List<CameraPoint>();
-    public CameraPathVisuals visual;
     public bool looped = false;
-    public bool alwaysShow = true;
     public LoopCompletionAction afterLoop = LoopCompletionAction.Continue;
+
+    [Header("Visualization Settings")]
+    public CameraPathVisuals visual;
+    public bool alwaysShow = true;
+
+    [Header("Camera Points")]
+    public List<CameraPoint> points = new List<CameraPoint>();
 
     private int currentWaypointIndex;
     private float currentTimeInWaypoint;
     private float timePerSegment;
-
     private bool paused = false;
     private bool playing = false;
 
-    void Start ()
+    void Start()
     {
-        
-        if (Camera.main == null) { Debug.LogError("There is no main camera in the scene!"); }
-	    if (useMainCamera)
-	        selectedCamera = Camera.main;
-	    else if (selectedCamera == null)
-	    {
+        InitializeCamera();
+        ValidatePointsCurves();
+
+        if (playOnAwake)
+        {
+            PlayPath(playOnAwakeTime);
+        }
+    }
+
+    private void InitializeCamera()
+    {
+        if (Camera.main == null)
+        {
+            Debug.LogError("There is no main camera in the scene!");
+        }
+
+        if (useMainCamera)
+        {
+            selectedCamera = Camera.main;
+        }
+        else if (selectedCamera == null)
+        {
             selectedCamera = Camera.main;
             Debug.LogError("No camera selected for following path, defaulting to main camera");
         }
 
-	    if (lookAtTarget && target == null)
-	    {
-	        lookAtTarget = false;
+        if (lookAtTarget && target == null)
+        {
+            lookAtTarget = false;
             Debug.LogError("No target selected to look at, defaulting to normal rotation");
         }
-
-	    foreach (var index in points)
-	    {
-            if (index.curveTypeRotation == EnumCurveType.EaseInAndOut) index.rotationCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-            if (index.curveTypeRotation == EnumCurveType.Linear) index.rotationCurve = AnimationCurve.Linear(0, 0, 1, 1);
-            if (index.curveTypePosition == EnumCurveType.EaseInAndOut) index.positionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-            if (index.curveTypePosition == EnumCurveType.Linear) index.positionCurve = AnimationCurve.Linear(0, 0, 1, 1);
-        }
-
-        if (playOnAwake)
-            PlayPath(playOnAwakeTime);
     }
 
-    /// <summary>
-    /// Plays the path
-    /// </summary>
-    /// <param name="time">The time in seconds how long the camera takes for the entire path</param>
+    private void ValidatePointsCurves()
+    {
+        foreach (var point in points)
+        {
+            point.rotationCurve = GetCurve(point.curveTypeRotation);
+            point.positionCurve = GetCurve(point.curveTypePosition);
+        }
+    }
+
+    private AnimationCurve GetCurve(EnumCurveType curveType)
+    {
+        switch (curveType)
+        {
+            case EnumCurveType.EaseInAndOut:
+                return AnimationCurve.EaseInOut(0, 0, 1, 1);
+            case EnumCurveType.Linear:
+                return AnimationCurve.Linear(0, 0, 1, 1);
+            default:
+                return AnimationCurve.Linear(0, 0, 1, 1);
+        }
+    }
+
     public void PlayPath(float time)
     {
         if (time <= 0) time = 0.001f;
@@ -121,9 +142,6 @@ public class CameraPath : MonoBehaviour
         StartCoroutine(FollowPath(time));
     }
 
-    /// <summary>
-    /// Stops the path
-    /// </summary>
     public void StopPath()
     {
         playing = false;
@@ -131,104 +149,48 @@ public class CameraPath : MonoBehaviour
         StopAllCoroutines();
     }
 
-    /// <summary>
-    /// Allows to change the time variable specified in PlayPath(float time) on the fly
-    /// </summary>
-    /// <param name="seconds">New time in seconds for entire path</param>
-    public void UpdateTimeInSeconds(float seconds)
-    {
-        timePerSegment = seconds / ((looped) ? points.Count : points.Count - 1);
-    }
-
-    /// <summary>
-    /// Pauses the camera's movement - resumable with ResumePath()
-    /// </summary>
     public void PausePath()
     {
         paused = true;
         playing = false;
     }
 
-    /// <summary>
-    /// Can be called after PausePath() to resume
-    /// </summary>
     public void ResumePath()
     {
         if (paused)
+        {
             playing = true;
-        paused = false;
+            paused = false;
+        }
     }
 
-    /// <summary>
-    /// Gets if the path is paused
-    /// </summary>
-    /// <returns>Returns paused state</returns>
-    public bool IsPaused()
-    {
-        return paused;
-    }
+    public bool IsPaused() => paused;
+    public bool IsPlaying() => playing;
+    public int GetCurrentWayPoint() => currentWaypointIndex;
+    public float GetCurrentTimeInWaypoint() => currentTimeInWaypoint;
+    public void SetCurrentWayPoint(int value) => currentWaypointIndex = value;
+    public void SetCurrentTimeInWaypoint(float value) => currentTimeInWaypoint = value;
 
-    /// <summary>
-    /// Gets if the path is playing
-    /// </summary>
-    /// <returns>Returns playing state</returns>
-    public bool IsPlaying()
-    {
-        return playing;
-    }
-
-    /// <summary>
-    /// Gets the index of the current waypoint
-    /// </summary>
-    /// <returns>Returns waypoint index</returns>
-    public int GetCurrentWayPoint()
-    {
-        return currentWaypointIndex;
-    }
-
-    /// <summary>
-    /// Gets the time within the current waypoint (Range is 0-1)
-    /// </summary>
-    /// <returns>Returns time of current waypoint (Range is 0-1)</returns>
-    public float GetCurrentTimeInWaypoint()
-    {
-        return currentTimeInWaypoint;
-    }
-
-    /// <summary>
-    /// Sets the current waypoint index of the path
-    /// </summary>
-    /// <param name="value">Waypoint index</param>
-    public void SetCurrentWayPoint(int value)
-    {
-        currentWaypointIndex = value;
-    }
-
-    /// <summary>
-    /// Sets the time in the current waypoint 
-    /// </summary>
-    /// <param name="value">Waypoint time (Range is 0-1)</param>
-    public void SetCurrentTimeInWaypoint(float value)
-    {
-        currentTimeInWaypoint = value;
-    }
-
-    /// <summary>
-    /// When index/time are set while the path is not playing, this method will teleport the camera to the position/rotation specified
-    /// </summary>
     public void RefreshTransform()
     {
         selectedCamera.transform.position = GetBezierPosition(currentWaypointIndex, currentTimeInWaypoint);
-        if (!lookAtTarget)
-            selectedCamera.transform.rotation = GetLerpRotation(currentWaypointIndex, currentTimeInWaypoint);
+        selectedCamera.fieldOfView = GetLerpFOV(currentWaypointIndex, currentTimeInWaypoint);
+        if (lookAtTarget)
+        {
+            Vector3 directionToTarget = (target.position - selectedCamera.transform.position).normalized;
+            selectedCamera.transform.rotation = Quaternion.LookRotation(directionToTarget);
+        }
         else
-            selectedCamera.transform.rotation = Quaternion.LookRotation((target.transform.position - selectedCamera.transform.position).normalized);
+        {
+            selectedCamera.transform.rotation = GetLerpRotation(currentWaypointIndex, currentTimeInWaypoint);
+        }
     }
 
-    IEnumerator FollowPath(float time)
+    private IEnumerator FollowPath(float time)
     {
         UpdateTimeInSeconds(time);
         currentWaypointIndex = 0;
+
         while (currentWaypointIndex < points.Count)
         {
             currentTimeInWaypoint = 0;
@@ -237,44 +199,59 @@ public class CameraPath : MonoBehaviour
                 if (!paused)
                 {
                     currentTimeInWaypoint += Time.deltaTime / timePerSegment;
-                    selectedCamera.transform.position = GetBezierPosition(currentWaypointIndex, currentTimeInWaypoint);
-                    if (!lookAtTarget)
-                        selectedCamera.transform.rotation = GetLerpRotation(currentWaypointIndex, currentTimeInWaypoint);
-                    else
-                        selectedCamera.transform.rotation = Quaternion.LookRotation((target.transform.position - selectedCamera.transform.position).normalized);
+                    UpdateCameraTransform(currentWaypointIndex, currentTimeInWaypoint);
                 }
-                yield return 0;
+                yield return null;
             }
             ++currentWaypointIndex;
-            if (currentWaypointIndex == points.Count - 1 && !looped) break;
-            if (currentWaypointIndex == points.Count && afterLoop == LoopCompletionAction.Continue) currentWaypointIndex = 0;
+            HandleLoop();
         }
         StopPath();
     }
 
-    int GetNextIndex(int index)
+    private void UpdateCameraTransform(int pointIndex, float time)
     {
-        if (index == points.Count-1)
-            return 0;
-        return index + 1;
+        selectedCamera.transform.position = GetBezierPosition(pointIndex, time);
+        selectedCamera.fieldOfView = GetLerpFOV(pointIndex, time);
+        if (lookAtTarget)
+        {
+            Vector3 directionToTarget = (target.position - selectedCamera.transform.position).normalized;
+            selectedCamera.transform.rotation = Quaternion.LookRotation(directionToTarget);
+        }
+        else
+        {
+            selectedCamera.transform.rotation = GetLerpRotation(pointIndex, time);
+        }
     }
 
-    Vector3 GetBezierPosition(int pointIndex, float time)
+    private void HandleLoop()
+    {
+        if (currentWaypointIndex == points.Count - 1 && !looped) return;
+        if (currentWaypointIndex == points.Count && afterLoop == LoopCompletionAction.Continue)
+        {
+            currentWaypointIndex = 0;
+        }
+    }
+
+    public void UpdateTimeInSeconds(float seconds)
+    {
+        timePerSegment = seconds / ((looped) ? points.Count : points.Count - 1);
+    }
+
+    private int GetNextIndex(int index) => (index == points.Count - 1) ? 0 : index + 1;
+
+    private Vector3 GetBezierPosition(int pointIndex, float time)
     {
         float t = points[pointIndex].positionCurve.Evaluate(time);
         int nextIndex = GetNextIndex(pointIndex);
-        return
-            Vector3.Lerp(
-                Vector3.Lerp(
-                    Vector3.Lerp(points[pointIndex].position,
-                        points[pointIndex].position + points[pointIndex].handlenext, t),
-                    Vector3.Lerp(points[pointIndex].position + points[pointIndex].handlenext,
-                        points[nextIndex].position + points[nextIndex].handleprev, t), t),
-                Vector3.Lerp(
-                    Vector3.Lerp(points[pointIndex].position + points[pointIndex].handlenext,
-                        points[nextIndex].position + points[nextIndex].handleprev, t),
-                    Vector3.Lerp(points[nextIndex].position + points[nextIndex].handleprev,
-                        points[nextIndex].position, t), t), t);
+        Vector3 p0 = points[pointIndex].position;
+        Vector3 p1 = p0 + points[pointIndex].handlenext;
+        Vector3 p2 = points[nextIndex].position + points[nextIndex].handleprev;
+        Vector3 p3 = points[nextIndex].position;
+
+        return Vector3.Lerp(
+            Vector3.Lerp(Vector3.Lerp(p0, p1, t), Vector3.Lerp(p1, p2, t), t),
+            Vector3.Lerp(Vector3.Lerp(p1, p2, t), Vector3.Lerp(p2, p3, t), t), t);
     }
 
     private Quaternion GetLerpRotation(int pointIndex, float time)
@@ -282,47 +259,51 @@ public class CameraPath : MonoBehaviour
         return Quaternion.LerpUnclamped(points[pointIndex].rotation, points[GetNextIndex(pointIndex)].rotation, points[pointIndex].rotationCurve.Evaluate(time));
     }
 
-    private float GetLerpFieldOfView(int pointIndex, float time)
+    private float GetLerpFOV(int pointIndex, float time)
     {
-        return Mathf.Lerp(points[pointIndex].fieldOfView, points[GetNextIndex(pointIndex)].fieldOfView, points[pointIndex].rotationCurve.Evaluate(time));
+        return Mathf.Lerp(points[pointIndex].fieldOfView, points[GetNextIndex(pointIndex)].fieldOfView, points[pointIndex].positionCurve.Evaluate(time));
     }
 
 #if UNITY_EDITOR
-    public void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         if (UnityEditor.Selection.activeGameObject == gameObject || alwaysShow)
         {
-            if (points.Count >= 2)
-            {
-                for (int i = 0; i < points.Count; i++)
-                {
-                    if (i < points.Count - 1)
-                    {
-                        var index = points[i];
-                        var indexNext = points[i + 1];
-                        UnityEditor.Handles.DrawBezier(index.position, indexNext.position, index.position + index.handlenext,
-                            indexNext.position + indexNext.handleprev,((UnityEditor.Selection.activeGameObject == gameObject) ? visual.pathColor : visual.inactivePathColor), null, 5);
-                    }
-                    else if (looped)
-                    {
-                        var index = points[i];
-                        var indexNext = points[0];
-                        UnityEditor.Handles.DrawBezier(index.position, indexNext.position, index.position + index.handlenext,
-                            indexNext.position + indexNext.handleprev, ((UnityEditor.Selection.activeGameObject == gameObject) ? visual.pathColor : visual.inactivePathColor), null, 5);
-                    }
-                }
-            }
-
-            for (int i = 0; i < points.Count; i++)
-            {
-                var index = points[i];
-                Gizmos.matrix = Matrix4x4.TRS(index.position, index.rotation, Vector3.one);
-                Gizmos.color = visual.frustrumColor;
-                Gizmos.DrawFrustum(Vector3.zero, 90f, 0.25f, 0.01f, 1.78f);
-                Gizmos.matrix = Matrix4x4.identity;
-            }
+            DrawPath();
+            DrawFrustums();
         }
     }
-#endif
 
+    private void DrawPath()
+    {
+        if (points.Count < 2) return;
+        for (int i = 0; i < points.Count; i++)
+        {
+            int nextIndex = (i < points.Count - 1) ? i + 1 : (looped ? 0 : -1);
+            if (nextIndex == -1) break;
+            DrawBezier(points[i], points[nextIndex]);
+        }
+    }
+
+    private void DrawBezier(CameraPoint pointA, CameraPoint pointB)
+    {
+        UnityEditor.Handles.DrawBezier(
+            pointA.position, pointB.position,
+            pointA.position + pointA.handlenext,
+            pointB.position + pointB.handleprev,
+            (UnityEditor.Selection.activeGameObject == gameObject) ? visual.pathColor : visual.inactivePathColor,
+            null, 5);
+    }
+
+    private void DrawFrustums()
+    {
+        foreach (var point in points)
+        {
+            Gizmos.matrix = Matrix4x4.TRS(point.position, point.rotation, Vector3.one);
+            Gizmos.color = visual.frustrumColor;
+            Gizmos.DrawFrustum(Vector3.zero, 90f, 0.25f, 0.01f, 1.78f);
+        }
+        Gizmos.matrix = Matrix4x4.identity;
+    }
+#endif
 }

@@ -50,6 +50,7 @@ public class CameraPathInspectorEditor : Editor
     private GUIContent unchainedContent = new GUIContent("o─x─o", "Toggles if the handles of the specified waypoint should be chained (mirrored) or not");
     private GUIContent replaceAllPositionContent = new GUIContent("Replace all position lerps", "Replaces curve types (and curves when set to \"Custom\") of all the waypoint position lerp types with the specified values");
     private GUIContent replaceAllRotationContent = new GUIContent("Replace all rotation lerps", "Replaces curve types (and curves when set to \"Custom\") of all the waypoint rotation lerp types with the specified values");
+    private GUIContent replaceAllFovContent = new GUIContent("Replace all fov lerps", "Replaces curve types (and curves when set to \"Custom\") of all the waypoint fov lerp types with the specified values");
 
     //Serialized Properties
     private SerializedObject serializedObjectTarget;
@@ -285,10 +286,13 @@ public class CameraPathInspectorEditor : Editor
             rect.width = 56;
             GUI.Label(rect, "Sum: " + t.points.Count);
             rect.x += rect.width;
-            rect.width = (fullWidth - 78) / 3;
+            rect.width = (fullWidth - 78) / 4;
             GUI.Label(rect, "Position Lerp");
             rect.x += rect.width;
             GUI.Label(rect, "Rotation Lerp");
+            rect.x += rect.width;
+            GUI.Label(rect, "Fov Lerp");
+            rect.x += rect.width;
             //rect.x += rect.width*2;
             //GUI.Label(rect, "Del.");
         };
@@ -467,6 +471,17 @@ public class CameraPathInspectorEditor : Editor
         if (GUILayout.Button(replaceAllRotationContent))
         {
             Undo.RecordObject(t, "Applied new rotation");
+            foreach (var index in t.points)
+            {
+                index.curveTypeRotation = allCurveType;
+                if (allCurveType == EnumCurveType.Custom)
+                    index.rotationCurve = allAnimationCurve;
+            }
+        }
+
+        if (GUILayout.Button(replaceAllFovContent))
+        {
+            Undo.RecordObject(t, "Applied new fov");
             foreach (var index in t.points)
             {
                 index.curveTypeRotation = allCurveType;
@@ -741,6 +756,7 @@ public class CameraPathInspectorEditor : Editor
             {
                 EditorGUI.BeginChangeCheck();
                 GUILayout.BeginVertical("Box");
+                float fov = Mathf.Clamp(EditorGUILayout.FloatField("Field of View", i.fieldOfView), 1, 179);
                 Vector3 pos = EditorGUILayout.Vector3Field("Waypoint Position", i.position);
                 Quaternion rot = Quaternion.Euler(EditorGUILayout.Vector3Field("Waypoint Rotation", i.rotation.eulerAngles));
                 Vector3 posp = EditorGUILayout.Vector3Field("Previous Handle Offset", i.handleprev);
@@ -749,6 +765,7 @@ public class CameraPathInspectorEditor : Editor
                 if (EditorGUI.EndChangeCheck())
                 {
                     Undo.RecordObject(t, "Changed waypoint transform");
+                    i.fieldOfView = fov;
                     i.position = pos;
                     i.rotation = rot;
                     i.handleprev = posp;
