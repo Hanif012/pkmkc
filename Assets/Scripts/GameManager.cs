@@ -14,26 +14,6 @@ public class GameManager : MonoBehaviour
         Play,
         EndOfDay
     }
-    public class GameTime
-    {
-        public int hour;
-        public int minute;
-
-        public GameTime(int hour, int minute)
-        {
-            this.hour = hour;
-            this.minute = minute;
-        }
-
-        public void AddTime(int hour, int minute)
-        {
-            this.hour += hour;
-            this.minute += minute;
-            if (this.minute >= 60)
-            {this.minute -= 60;
-            this.hour++;}
-        }
-    }
     [SerializeField] private GameObject gameGUI;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject endOfDayMenu;
