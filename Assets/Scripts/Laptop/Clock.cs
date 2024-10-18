@@ -11,7 +11,7 @@ public class Clock : MonoBehaviour, ITimeObserver
     private float elapsedTime = 0f;
     private bool showColon = true; // Controls whether to show the colon or not
 
-    void Awake()
+    void Start()
     {
         if (timeText == null)
             timeText = GetComponent<TextMeshProUGUI>();

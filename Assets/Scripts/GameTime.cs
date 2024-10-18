@@ -42,6 +42,7 @@ public class GameTime : MonoBehaviour
             AddTime(0, 3); // Add 3 minutes
             elapsedTime = 0f; // Reset the elapsed time counter
         }
+        // Debug.Log(observers.Count); // Cek jumlah observer
     }
 
     public void AddTime(int hour, int minute)
