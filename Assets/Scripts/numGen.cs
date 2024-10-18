@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class numGen : MonoBehaviour, IInteractable
+public class numGen : Interactable
 {
     public void Interact()
     {

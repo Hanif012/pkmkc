@@ -22,13 +22,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject TransitionScene;
     [SerializeField] private DailyMission dailyMission;
 
-    public GameTime time = new(8, 0);
+    // public GameTime time = new(8, 0);
     public static GameManager Instance { get; private set; }
     public MusicManager musicManager;
     public GameState gameState = GameState.StartDay;
     
     private float orderCooldown = 0;
-
 
     // bool collection
     private bool isOrderCooldown = false;

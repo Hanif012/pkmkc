@@ -22,15 +22,14 @@ public class Oven : MonoBehaviour
     {
         if (!isOn && isFoodinOven)
         {
-            something = StartCoroutine(CookFood());
-            // Start cooking
+            
         }
     }
 
     public IEnumerator CookFood()
     {
         yield return new WaitForSeconds(1f);
-
+        
     }
 
 }

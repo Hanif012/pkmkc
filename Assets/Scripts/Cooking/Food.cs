@@ -7,5 +7,5 @@ public class Food : ScriptableObject
     [Header("Food Settings")]
     [SerializeField] private string foodName;
     [SerializeField] private float cookingTime = 10f;
-    [SerializeField] private Image foodImage;
+    // [SerializeField] private ;
 }

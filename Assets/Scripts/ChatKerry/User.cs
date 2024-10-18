@@ -5,7 +5,7 @@ public class User: MonoBehaviour
     public string UserName { get; set; }
     public string ProfilePictureUrl { get; set; }
     public string StatusMessage { get; set; } // e.g., "Online", "Away", "Do not disturb"
-    public GameManager.GameTime LastSeen { get; set; }
+    public GameTime LastSeen { get; set; }
 
     // Additional properties
     public bool IsOnline { get; set; }
