@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using UnityEngine;
 
+public interface IGameObserver
+{
+    void OnGameStateChanged(GameManager.GameState gameState);
+}
+
 [RequireComponent(typeof(MusicManager))]
 public class GameManager : MonoBehaviour
 {
@@ -109,4 +114,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void PauseMenu()
+    {
+        if(gameState == GameState.Pause)
+        {
+            TogglePause();
+            gameState = GameState.Play;
+        }
+        else
+        {
+            TogglePause();
+            gameState = GameState.Pause;
+        }
+    }
 }

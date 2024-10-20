@@ -5,7 +5,10 @@ using UnityEngine.UI;
 public class Food : ScriptableObject
 {
     [Header("Food Settings")]
-    [SerializeField] private string foodName;
-    [SerializeField] private float cookingTime = 10f;
-    // [SerializeField] private ;
+    [SerializeField] public string foodName;
+    [SerializeField] public Sprite foodImage;
+    [SerializeField] public float cookingTime = 10f;
+    [SerializeField] public string foodDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec pur";
+    [SerializeField] public int cost = 10;
+    // [SerializeField] public Ingredient[] ingredients;
 }

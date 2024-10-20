@@ -1,5 +1,7 @@
+using Lean.Transition.Method;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 
 [System.Serializable]
 public class AudioArray
@@ -63,8 +65,8 @@ public class AudioClipSO : ScriptableObject
     [Header("Name")]
     public string _name = "What the sigma this audio for?";
     public string _desc = "What the sigma this audio for?";
-
     [Header("Audio Clips")]
     public AudioArray[] audioArray;
     public AudioMixerGroup mixerGroup;
+    public LeanAudioSourceVolume volume;
 }

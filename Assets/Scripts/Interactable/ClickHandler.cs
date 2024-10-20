@@ -16,7 +16,7 @@ public class ClickHandler : MonoBehaviour
     private Camera cam;
     private bool isButtonDownOnInteractable = false;
 
-    void Start()
+    void Awake()
     {
         cam = Camera.main;
     }
