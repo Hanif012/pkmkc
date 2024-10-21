@@ -9,20 +9,26 @@ public interface ITimeObserver
 public class GameTime : MonoBehaviour
 {
     public static GameTime Instance { get; private set; }
-    public float TimeInterval = 2f;
-
-    public int hour;
-    public int minute;
-    public int TotalTime;
+    public float TimeInterval = 2f; // Interval between time updates in seconds
+    [SerializeField]private int hour;
+    [SerializeField]private int minute;
+    [SerializeField]private int totalTime;
+    [SerializeField]private int timeIncrement = 3;
 
     private List<ITimeObserver> observers = new List<ITimeObserver>();
     private float elapsedTime = 0f; // Keeps track of time
+
+
+    public int Hour => hour; // Read-only property for hour
+    public int Minute => minute; // Read-only property for minute
+    public int TotalTime => totalTime; // Read-only property for total time
 
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject); // Keep this instance alive across scenes
         }
         else
         {
@@ -36,13 +42,12 @@ public class GameTime : MonoBehaviour
         // Increment elapsed time by the time passed since the last frame
         elapsedTime += Time.deltaTime;
 
-        // Check if 1 second has passed
-        if (elapsedTime >= TimeInterval) // 1 second has passed
+        // Check if the defined time interval has passed
+        if (elapsedTime >= TimeInterval) // TimeInterval could be 2 seconds, for example
         {
-            AddTime(0, 3); // Add 3 minutes
+            AddTime(0, timeIncrement); // Add timeIncrement minutes every TimeInterval
             elapsedTime = 0f; // Reset the elapsed time counter
         }
-        // Debug.Log(observers.Count); // Cek jumlah observer
     }
 
     public void AddTime(int hour, int minute)
@@ -50,24 +55,24 @@ public class GameTime : MonoBehaviour
         this.hour += hour;
         this.minute += minute;
 
+        // Handle minute overflow (if minutes reach 60)
         if (this.minute >= 60)
         {
             this.minute -= 60;
             this.hour++;
         }
 
+        // Handle hour overflow (if hours reach 24)
         if (this.hour >= 24)
         {
             this.hour -= 24; // Wrap around for 24-hour format
         }
 
-        TotalTime = this.hour * 60 + this.minute; // Update TotalTime
-        NotifyObservers(); // Notify all observers of the time change
-    }
+        // Update the total time (in minutes)
+        totalTime = this.hour * 60 + this.minute; 
 
-    public int GetTime()
-    {
-        return hour * 60 + minute;
+        // Notify all observers of the time change
+        NotifyObservers();
     }
 
     public void RegisterObserver(ITimeObserver observer)
