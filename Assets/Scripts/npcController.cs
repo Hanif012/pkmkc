@@ -34,7 +34,7 @@ public class npcController : MonoBehaviour
 
     void roam()
     {
-        if(Vector3.Distance(transform.position, PathPoints[index].position) < minDistance)
+        if (Vector3.Distance(transform.position, PathPoints[index].position) < minDistance)
         {
             if (index + 1 != PathPoints.Length)
             {
@@ -43,9 +43,25 @@ public class npcController : MonoBehaviour
             else
             {
                 index = 0;
+                StartCoroutine(PlayWavingAnimation());
+                return;
             }
         }
+
         agent.SetDestination(PathPoints[index].position);
+
         animator.SetFloat("vertical", !agent.isStopped ? 1 : 0);
+    }
+
+    IEnumerator PlayWavingAnimation()
+    {
+        agent.isStopped = true;
+        animator.SetFloat("vertical", 0);
+        animator.SetFloat("horizontal", -1);
+
+        yield return new WaitForSeconds(5f);
+
+        animator.SetFloat("horizontal", 0);
+        agent.isStopped = false;
     }
 }
