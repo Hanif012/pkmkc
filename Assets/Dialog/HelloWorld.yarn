@@ -1,0 +1,57 @@
+title: Start
+position: -18,-377
+---
+Companion: Hi there! What do you feel like doing today?
+
+-> Player: I want to go swimming.
+    Companion: Okay, let's go swimming.
+    <<jump Swimming>>
+-> Player: I'd prefer to go hiking.
+    Companion: Cool, we'll go hiking then.
+    <<jump Hiking>>
+===
+title: Swimming
+position: -147,-146
+---
+Companion: Where do you want to swim?
+-> Player: The lake!
+    Companion: Nice! It's a great day for it.
+-> Player: The swimming pool!
+    Companion: Oh, awesome! I heard they installed a new slide.
+<<jump Done>>
+===
+title: Hiking
+position: 155,-148
+---
+Companion: Have you got your hiking boots ready?
+-> Player: Yes.
+    Companion: Great, let's go!
+-> Player: No.
+    Companion: We can swing by your place and pick them up!
+
+<<jump Done>>
+===
+title: Done
+position: -30,131
+---
+Player: Sounds good!
+
+<<jump Done1>>
+===
+
+title: Done1
+position: 251,139
+---
+Task Complete
+===
+
+
+title: Tutorial
+position: 422,-349
+---
+Mom : Hello World!
+-> Player: Hi Mom!
+    Mom: How are you doing?
+-> Player: I'm doing great!
+    Mom: That's good to hear.
+===
