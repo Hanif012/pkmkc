@@ -59,7 +59,7 @@ public class npcController : MonoBehaviour
         animator.SetFloat("vertical", 0);
         animator.SetFloat("horizontal", -1);
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3.5f);
 
         animator.SetFloat("horizontal", 0);
         agent.isStopped = false;
