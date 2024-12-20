@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fdbe1e44ef24714f9e29dcef1e5f6db, type: 3}
+  m_Name: AudioClip
+  m_EditorClassIdentifier: 
+  Name: Audio Clip Name
+  description: Description of the audio clip.
+  audioArray:
+  - name: Click
+    audioClip: {fileID: 8300000, guid: 61fc8bbbb19740b49bb0861a4864ae6b, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    spatialBlend: 0
+    priority: 0
+    source: {fileID: 0}
+    randomizePitch: 1
+    pitchRange: 0
+    randomizeVolume: 0
+  mixerGroup: {fileID: 24300002, guid: a041ac719ce8cb045accec8457f89b44, type: 2}
