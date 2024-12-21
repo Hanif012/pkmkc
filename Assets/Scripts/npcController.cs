@@ -12,6 +12,12 @@ public class npcController : MonoBehaviour
     private Transform[] PathPoints;
     public float minDistance = 0;    
     public int index = 0;
+
+    // AudioManager audioManager;
+    // private void Awake()
+    // {
+    //     audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    // }
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
