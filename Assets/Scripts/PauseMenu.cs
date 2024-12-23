@@ -7,8 +7,6 @@ public class PauseMenu : MonoBehaviour
     public static bool GamePaused = false;
 
     public GameObject PauseMenuUI;
-
-    NewAudioManager audioManager;
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -36,7 +34,6 @@ public class PauseMenu : MonoBehaviour
         PauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GamePaused = true;
-        // PauseBackgroundMusic();
     }
 
     public void MainMenu()
