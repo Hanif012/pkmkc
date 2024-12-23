@@ -13,11 +13,11 @@ public class npcController : MonoBehaviour
     public float minDistance = 0;    
     public int index = 0;
 
-    // AudioManager audioManager;
-    // private void Awake()
-    // {
-    //     audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-    // }
+    AudioManager audioManager;
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -36,6 +36,7 @@ public class npcController : MonoBehaviour
     void Update()
     {
         roam();
+        if()
     }
 
     void roam()

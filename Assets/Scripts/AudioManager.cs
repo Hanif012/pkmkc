@@ -1,62 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum AudioType
-{
-    SFX,
-    Ambient,
-    Music
-}
-public class AudioManager : MonoBehaviour
-{
-    
-    public AudioClipSO audioClipsMusic;
-    public AudioClipSO audioClipsSFX;
-    public AudioClipSO audioClipsAmbient;
 
-    // Update is called once per frame
-    public static AudioManager Instance;
-    private void Awake()
+public class NewAudioManager : MonoBehaviour
+{
+    [SerializeField] AudioSource musicSource;
+    [SerializeField] AudioSource SFXSource;
+
+    public AudioClip Background;
+    public AudioClip FootSteps;
+    void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
+        musicSource.clip = Background;
+        musicSource.Play();
     }
 
-    public void PlayAudio(AudioType audioType)
+    public void PlaySFX(AudioClip clip)
     {
-        switch (audioType)
-        {
-            case AudioType.SFX:
-                // AudioSource.PlayClipAtPoint(audioClips.sfx, transform.position);
-                break;
-            case AudioType.Ambient:
-                // AudioSource.PlayClipAtPoint(audioClips.ambient, transform.position);
-                break;
-            case AudioType.Music:
-                // AudioSource.PlayClipAtPoint(audioClips.music, transform.position);
-                break;
-        }
+        SFXSource.PlayOneShot(clip);
     }
 
-    public void SetVolume(AudioType audioType, float volume)
+    void Update()
     {
-        switch (audioType)
-        {
-            case AudioType.SFX:
-                // audioClipsSFX.volume = volume;
-                break;
-            case AudioType.Ambient:
-                // audioClipsAmbient.volume = volume;
-                break;
-            case AudioType.Music:
-                // audioClips.music.volume = volume;
-                break;
-        }
+        
     }
 }
