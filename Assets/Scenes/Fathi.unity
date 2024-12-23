@@ -6297,22 +6297,22 @@ PrefabInstance:
     - target: {fileID: 5344407430356447629, guid: a2c2645da3ac9d841b9cc562b02e8d0d,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5344407430356447629, guid: a2c2645da3ac9d841b9cc562b02e8d0d,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5344407430356447629, guid: a2c2645da3ac9d841b9cc562b02e8d0d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 333.6
       objectReference: {fileID: 0}
     - target: {fileID: 5344407430356447629, guid: a2c2645da3ac9d841b9cc562b02e8d0d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -83.1
       objectReference: {fileID: 0}
     - target: {fileID: 5456918979214288649, guid: a2c2645da3ac9d841b9cc562b02e8d0d,
         type: 3}
@@ -6801,6 +6801,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bank
+      objectReference: {fileID: 0}
+    - target: {fileID: 7361140202329460367, guid: 6316f98aac3345a4685193276b652041,
+        type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7361140202329460367, guid: 6316f98aac3345a4685193276b652041,
+        type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: onClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7361140202329460367, guid: 6316f98aac3345a4685193276b652041,
+        type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StrukButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7361140202329460367, guid: 6316f98aac3345a4685193276b652041,
+        type: 3}
+      propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8102401984311815381, guid: 6316f98aac3345a4685193276b652041,
         type: 3}
