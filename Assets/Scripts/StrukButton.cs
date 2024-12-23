@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Globalization;
+using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class StrukButton : MonoBehaviour
 {
@@ -16,26 +18,27 @@ public class StrukButton : MonoBehaviour
         public List<int> Prices = new List<int> { 12000 };
     }
     public bool isStrukButton;
-    public TextMeshProUGUI textMeshProUGUI;
+    public TextMeshProUGUI ReceiptText;
     public struk orderDetails = new struk();
-    public TextMeshProUGUI ButtonText;
+    public Text ButtonText;
+    public string strukText = "Struk";
 
     void Awake()
     {
-        ButtonText = GetComponent<TextMeshProUGUI>();
-        ButtonText.text = $"{orderDetails.Date}";    
+        ButtonText = transform.GetComponentInChildren<Text>();
+
+        this.ButtonText.text = $"{orderDetails.Date}";
+        if(ReceiptText == null)
+        {
+            Debug.Log("Struk text not found, using default Struk text.");
+            // DO NOT CHANGE THE HEIRARCY! IM TOO LAZY TO USE TAGS
+            ReceiptText = transform.parent.parent.Find(strukText).GetComponent<TextMeshProUGUI>();
+        }
     }
-    void Update()
+    public void onClick()
     {
-        if (isStrukButton)
-        {
-            GenerateReceipt();
-            isStrukButton = false;
-        }
-        else
-        {
-            textMeshProUGUI.text = "Struk";
-        }
+        GenerateReceipt();
+        Debug.Log("Struk button pressed.");
     }
 
     void GenerateReceipt()
@@ -59,7 +62,7 @@ public class StrukButton : MonoBehaviour
         receiptText += "------------------------------------------------\n" +
                        $"Total\t\t\tRp {total.ToString("N0", new CultureInfo("id-ID"))}";
 
-        textMeshProUGUI.text = receiptText;
+        ReceiptText.text = receiptText;
     }
     
 }
