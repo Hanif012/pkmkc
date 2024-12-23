@@ -9,6 +9,11 @@ public class PauseMenu : MonoBehaviour
     public GameObject PauseMenuUI;
 
     NewAudioManager audioManager;
+
+    void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<NewAudioManager>();
+    }
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -29,14 +34,15 @@ public class PauseMenu : MonoBehaviour
         PauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GamePaused = false;
+        audioManager.ResumeBackgroundMusic();
     }
 
-    void Pause()
+    public void Pause()
     {
         PauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GamePaused = true;
-        // PauseBackgroundMusic();
+        audioManager.PauseBackgroundMusic();
     }
 
     public void MainMenu()
