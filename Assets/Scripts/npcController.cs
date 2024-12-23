@@ -13,6 +13,8 @@ public class npcController : MonoBehaviour
     public float minDistance = 0.5f;    
     public int index = 0;
 
+    private float footstepTimer = 0f;
+    public float footstepInterval = 0.5f;
     NewAudioManager audioManager;
     private void Awake()
     {
@@ -36,10 +38,16 @@ public class npcController : MonoBehaviour
     void Update()
     {
         roam();
-        // if (agent.velocity.magnitude > 0.1f) 
-        // {
-        //     audioManager.PlaySFX(audioManager.FootSteps);
-        // }
+
+        if (!agent.isStopped && agent.velocity.magnitude > 0.1f)
+        {
+            footstepTimer += Time.deltaTime;
+            if (footstepTimer >= footstepInterval)
+            {
+                audioManager.PlaySFX(audioManager.FootSteps);
+                footstepTimer = 0f; 
+            }
+        }    
     }
 
     void roam()
