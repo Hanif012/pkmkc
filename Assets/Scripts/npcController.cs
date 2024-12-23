@@ -10,13 +10,13 @@ public class npcController : MonoBehaviour
 
     public GameObject PATH;
     private Transform[] PathPoints;
-    public float minDistance = 0;    
+    public float minDistance = 0.5f;    
     public int index = 0;
 
-    AudioManager audioManager;
+    NewAudioManager audioManager;
     private void Awake()
     {
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<NewAudioManager>();
     }
     void Start()
     {
@@ -36,7 +36,10 @@ public class npcController : MonoBehaviour
     void Update()
     {
         roam();
-        if()
+        // if (agent.velocity.magnitude > 0.1f) 
+        // {
+        //     audioManager.PlaySFX(audioManager.FootSteps);
+        // }
     }
 
     void roam()

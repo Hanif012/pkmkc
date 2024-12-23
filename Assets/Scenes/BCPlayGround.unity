@@ -936,7 +936,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2658,7 +2658,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -3625,7 +3625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8572e352b33b05a41bfa2ec64804e1db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
+  agent: {fileID: 919132149530254053}
   animator: {fileID: 919132149530254050}
   PATH: {fileID: 1859708330}
   minDistance: 1
