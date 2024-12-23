@@ -20,8 +20,19 @@ public class NewAudioManager : MonoBehaviour
         SFXSource.PlayOneShot(clip);
     }
 
-    void Update()
+    public void PauseBackgroundMusic()
     {
-        
+        if (musicSource.isPlaying)
+        {
+            musicSource.Pause();
+        }
+    }
+
+    public void ResumeBackgroundMusic()
+    {
+        if (!musicSource.isPlaying)
+        {
+            musicSource.UnPause();
+        }
     }
 }

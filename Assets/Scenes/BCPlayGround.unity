@@ -936,7 +936,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2170,7 +2170,7 @@ GameObject:
   - component: {fileID: 1751049381}
   m_Layer: 0
   m_Name: AudioManager
-  m_TagString: Untagged
+  m_TagString: Audio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3630,6 +3630,7 @@ MonoBehaviour:
   PATH: {fileID: 1859708330}
   minDistance: 1
   index: 0
+  footstepInterval: 0.5
 --- !u!195 &919132149530254053
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5502,10 +5503,10 @@ SceneRoots:
   - {fileID: 1562751814}
   - {fileID: 1098695370}
   - {fileID: 2139114951}
-  - {fileID: 543450653198123099}
   - {fileID: 1859708331}
   - {fileID: 1842196901}
   - {fileID: 1850220151}
   - {fileID: 563792012}
   - {fileID: 1618809373}
   - {fileID: 1751049380}
+  - {fileID: 543450653198123099}
