@@ -13,6 +13,8 @@ public class npcController : MonoBehaviour
     public float minDistance = 0;    
     public int index = 0;
 
+    private DoorController door;
+
     NewAudioManager audioManager;
     // private void Awake()
     // {
@@ -22,6 +24,8 @@ public class npcController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+
+        door = GameObject.Find("PivotDoor")?.GetComponent<DoorController>();
 
         PathPoints = new Transform[PATH.transform.childCount];
         for (int i = 0; i < PathPoints.Length;i++)
@@ -63,8 +67,13 @@ public class npcController : MonoBehaviour
                 index++;
             }
         }
-
-        agent.SetDestination(PathPoints[index].position);
+        if(index > PathPoints.Length - 1)
+        {
+        }
+        else
+        {
+            agent.SetDestination(PathPoints[index].position);
+        }
         if(!agent.isStopped)
         {
             animator.SetFloat("vertical", 1);
@@ -90,7 +99,9 @@ public class npcController : MonoBehaviour
         animator.SetFloat("vertical", -1);
         animator.SetFloat("horizontal", 0);
 
-        yield return new WaitForSeconds(5.3f);
+        door.Interact();
+        yield return new WaitForSeconds(3);
+
 
         agent.isStopped = false;
 
