@@ -7,10 +7,10 @@
     "**/*~/*"
   ],
   "localisation": {
-    "id": {
-      "assets": "Dialog"
+    "en": {
+      "assets": "."
     }
   },
-  "baseLanguage": "id",
+  "baseLanguage": "en",
   "compilerOptions": {}
 }

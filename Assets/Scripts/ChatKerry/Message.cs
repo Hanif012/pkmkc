@@ -1,27 +1,44 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Message : MonoBehaviour
 {
-    public string MessageId { get; set; }
-    public string SenderId { get; set; }
-    public string ChatId { get; set; }
-    public string Text { get; set; }
-    public GameTime SentTime { get; set; }
-    public Attachment Attachment { get; set; } // Optional attachment
-    // public List<Reaction> Reactions { get; set; } = new List<Reaction>();
+    // PREFABS
+    [Header("Contact")]
+    public GameObject ContactPrefab;
+    public GameObject ContactParent;
 
-    public Message(string messageId, string senderId, string chatId, string text, GameTime sentTime)
+    [Header("Chat")]
+    public GameObject ChatPrefab;
+    public GameObject ChatParent;
+    void Awake()
     {
-        MessageId = messageId;
-        SenderId = senderId;
-        ChatId = chatId;
-        Text = text;
-        SentTime = sentTime;
+        AddContact();
+        AddChat();
+    }
+    public void AddContact()
+    {
+        GameObject contact = Instantiate(ContactPrefab);
+        contact.transform.SetParent(ContactParent.transform, false);
     }
 
-    // Methods to add reactions, etc.
-    // public void AddReaction(Reaction reaction)
+    public void AddChat()
+    {
+        GameObject chat = Instantiate(ChatPrefab);
+        
+        if (ChatParent != null)
+        {
+            chat.transform.SetParent(ChatParent.transform, false);
+        }
+        else
+        {
+            chat.transform.SetParent(this.transform, false);
+        }
+    }
+
+    // public void AddEnemyAsChild(GameObject enemyPrefab, GameObject parent)
     // {
-    //     Reactions.Add(reaction);
+    //     GameObject enemy = Instantiate(enemyPrefab);
+    //     enemy.transform.SetParent(parent.transform, false);
     // }
 }

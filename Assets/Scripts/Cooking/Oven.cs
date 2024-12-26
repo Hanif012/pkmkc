@@ -110,8 +110,6 @@ public class Oven : MonoBehaviour
         }
     }
 
-
-
     public IEnumerator CookFood()
     {
         yield return new WaitForSeconds(1f);
