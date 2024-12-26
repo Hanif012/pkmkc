@@ -25,7 +25,6 @@ public class DoorController : MonoBehaviour
         doorAnimator.ResetTrigger("Close");  // Reset any previous Close trigger
         doorAnimator.SetTrigger("Open");
         isOpen = true;
-        Debug.Log("P");
     }
 
     void CloseDoor()
