@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -39,6 +40,12 @@ public class npcController : MonoBehaviour
     
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            
+            StartCoroutine(PlayRightTurn());
+            index++;
+        }
         roam();
     }
 
@@ -51,29 +58,35 @@ public class npcController : MonoBehaviour
                 StartCoroutine(PlayOpenDoorAnimation());
                 index++;
             }
-            else if (index == PathPoints.Length - 1)
+            else if (index == 6)
             {
                 StartCoroutine(PlayWavingAnimation());
+                // Debug.Log("pp");
                 index++;
             }
-            else if (index > PathPoints.Length - 1)
+            else if (index == 7)
             {
-                agent.isStopped = true;
                 animator.SetFloat("vertical", 0);
-                animator.SetFloat("horizontal", 0);
+                animator.SetFloat("horizontal", 0); 
             }
-            else
+            else if (index == 9)
+            {
+                StartCoroutine(PlayOpenDoorAnimation());
+                index++;
+            }
+            else if (index < PathPoints.Length - 1)
             {
                 index++;
             }
+            else if (index == PathPoints.Length - 1)
+            {
+                animator.SetFloat("vertical", 0);
+                animator.SetFloat("horizontal", 0); 
+            }
         }
-        if(index > PathPoints.Length - 1)
-        {
-        }
-        else
-        {
-            agent.SetDestination(PathPoints[index].position);
-        }
+        
+        agent.SetDestination(PathPoints[index].position);
+        
         if(!agent.isStopped)
         {
             animator.SetFloat("vertical", 1);
@@ -86,11 +99,7 @@ public class npcController : MonoBehaviour
         animator.SetFloat("vertical", 0);
         animator.SetFloat("horizontal", -1);
 
-        
-        yield return new WaitForSeconds(1.8f);
-
-        animator.SetFloat("horizontal", 0);
-        agent.isStopped = false;
+        yield return new WaitForSeconds(2);
     }
 
     IEnumerator PlayOpenDoorAnimation()
@@ -100,7 +109,7 @@ public class npcController : MonoBehaviour
         animator.SetFloat("horizontal", 0);
 
         door.Interact();
-        yield return new WaitForSeconds(2.3f);
+        yield return new WaitForSeconds(2f);
 
 
         agent.isStopped = false;
@@ -111,5 +120,20 @@ public class npcController : MonoBehaviour
 
         door.Interact(); 
 
+    }
+    IEnumerator PlayRightTurn()
+    {
+        agent.isStopped = true;
+        animator.SetFloat("vertical", 0);
+        animator.SetFloat("horizontal", 1);
+
+        
+        yield return new WaitForSeconds(1);
+
+        transform.Rotate(0, 180, 0);
+
+        agent.isStopped = false;
+        animator.SetFloat("vertical", 1);
+        animator.SetFloat("horizontal", 0);
     }
 }
