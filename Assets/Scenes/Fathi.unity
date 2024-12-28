@@ -3235,7 +3235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005649006, y: 164.55676}
+  m_AnchoredPosition: {x: -0.0005649006, y: 164.58026}
   m_SizeDelta: {x: 0, y: 164.58508}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1309108073
@@ -3421,7 +3421,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1596452683}
   m_HandleRect: {fileID: 1596452682}
   m_Direction: 2
-  m_Value: 0.00015853526
+  m_Value: 0.000010198175
   m_Size: 0.6862567
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6022,6 +6022,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2410813280817634036, guid: e50f4c5f4db10cb4c915fe1e6f47cff2,
+        type: 3}
+      propertyPath: startAutomatically
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2798705778789925968, guid: e50f4c5f4db10cb4c915fe1e6f47cff2,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -6246,6 +6251,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064728023949256087, guid: e50f4c5f4db10cb4c915fe1e6f47cff2,
+        type: 3}
+      propertyPath: NodeStarter
+      value: ScamImpersonation
       objectReference: {fileID: 0}
     - target: {fileID: 8168456893707194120, guid: e50f4c5f4db10cb4c915fe1e6f47cff2,
         type: 3}

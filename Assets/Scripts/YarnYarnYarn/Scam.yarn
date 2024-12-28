@@ -1,0 +1,57 @@
+title: ScamImpersonation
+tags:
+---
+<<declare $playerName = "Player">>
+<<declare $scammerName = "Scammer">>
+<<Them>>
+Halo $playerName?
+<<wait 1>>
+Gmn Kbr?
+<<wait 3>>
+<<Me>>
+-> Siapa y?
+    Siapa y?
+    <<wait 2>>
+->Baik
+    Baik
+    <<wait 4>> 
+Ini dgn siapa?
+<<wait 1>>
+<<Them>>
+Masa kamu lupa?
+<<wait 2>>
+Ini tante Mirna
+<<wait 4>>
+Kamu sekarang buka toko roti yak?
+<<wait 2>>
+<<Me>>
+-> Oh, Tante Mirna
+    Oh Tante Mirna
+    <<wait 4>>
+    Gmn kbrnya tante?
+    <<wait>>
+-> Perasaan tidak kenal
+    Gk kenal
+    <<wait 4>>
+    Tante Mirna siapa?
+    <<Them>>
+    <<wait 2>>
+    kamu lupa ya?
+    <<wait 3>>
+    Ini temen mama kamu, yang biasa arisan bareng
+    <<wait 4>>
+<<Them>>
+Jadi, kan kmu buka toko roti nih, tante kan juga jualan selai kacang
+<<wait 2>>
+-> Oh, mau nitip pesan?
+    <<Me>>
+    Oh, mau nitip pesan?
+-> Tunggu dia jawab
+    <<wait 2>>
+<<Them>>
+Jadi tante mau nitip Selai Kacang di Toko Roti kamu
+<<wait 2>>
+
+<<wait 1>>
+<<Them>>
+===

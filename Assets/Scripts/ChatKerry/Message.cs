@@ -1,16 +1,14 @@
 using UnityEngine;
-using UnityEditor.Events;
-using UnityEngine.Events;
-using Yarn.Unity; // Add this line
+using Yarn.Unity;
 using Lean.Gui;
-using System;
 
 public class Message : MonoBehaviour
 {
+    [Header("Chat Settings")]
+    // [SerializeField] 
     [Header("Message Dialouge")]
     [SerializeField] private string NodeStarter = "Start";
 
-    // PREFABS
     [Header("Contact")]
     [SerializeField] private GameObject ContactPrefab;
     [SerializeField] private GameObject ContactParent;
@@ -21,7 +19,7 @@ public class Message : MonoBehaviour
 
     void Awake()
     {
-
+        FetchData();
     }
 
     public void FetchData()
@@ -30,7 +28,7 @@ public class Message : MonoBehaviour
         var contact = AddContact();
         contact.GetComponent<LeanButton>().OnClick.AddListener(() => chat.transform.SetAsLastSibling());
     }
-    
+
     public GameObject AddContact()
     {
         GameObject contact = Instantiate(ContactPrefab);
@@ -46,9 +44,9 @@ public class Message : MonoBehaviour
         }
         GameObject chat = Instantiate(ChatPrefab);
         chat.transform.SetParent(ChatParent.transform, false);
+        chat.transform.Find("Dialogue Runner").GetComponent<DialogueRunner>().startAutomatically = true; // Start the chat automatically if not started :skull:
         chat.transform.Find("Dialogue Runner").GetComponent<DialogueRunner>().startNode = NodeStarter;
         chat.SetActive(true);
         return chat;
     }
-
 }
