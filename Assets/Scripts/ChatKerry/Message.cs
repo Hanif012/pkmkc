@@ -1,44 +1,54 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEditor.Events;
+using UnityEngine.Events;
+using Yarn.Unity; // Add this line
+using Lean.Gui;
+using System;
 
 public class Message : MonoBehaviour
 {
+    [Header("Message Dialouge")]
+    [SerializeField] private string NodeStarter = "Start";
+
     // PREFABS
     [Header("Contact")]
-    public GameObject ContactPrefab;
-    public GameObject ContactParent;
+    [SerializeField] private GameObject ContactPrefab;
+    [SerializeField] private GameObject ContactParent;
 
     [Header("Chat")]
-    public GameObject ChatPrefab;
-    public GameObject ChatParent;
+    [SerializeField] private GameObject ChatPrefab;
+    [SerializeField] private GameObject ChatParent;
+
     void Awake()
     {
-        AddContact();
-        AddChat();
+
     }
-    public void AddContact()
+
+    public void FetchData()
+    {
+        var chat = AddChat();
+        var contact = AddContact();
+        contact.GetComponent<LeanButton>().OnClick.AddListener(() => chat.transform.SetAsLastSibling());
+    }
+    
+    public GameObject AddContact()
     {
         GameObject contact = Instantiate(ContactPrefab);
         contact.transform.SetParent(ContactParent.transform, false);
+        contact.SetActive(true);
+        return contact;
     }
-
-    public void AddChat()
+    public GameObject AddChat()
     {
+        if(ChatParent == null)
+        {
+            ChatParent = this.gameObject;
+        }
         GameObject chat = Instantiate(ChatPrefab);
-        
-        if (ChatParent != null)
-        {
-            chat.transform.SetParent(ChatParent.transform, false);
-        }
-        else
-        {
-            chat.transform.SetParent(this.transform, false);
-        }
+        chat.transform.SetParent(ChatParent.transform, false);
+        chat.transform.Find("Dialogue Runner").GetComponent<DialogueRunner>().startNode = NodeStarter;
+        chat.SetActive(true);
+        return chat;
     }
 
-    // public void AddEnemyAsChild(GameObject enemyPrefab, GameObject parent)
-    // {
-    //     GameObject enemy = Instantiate(enemyPrefab);
-    //     enemy.transform.SetParent(parent.transform, false);
-    // }
 }
