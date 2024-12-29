@@ -10,5 +10,4 @@ public class Food : ScriptableObject
     [SerializeField] public float cookingTime = 10f;
     [SerializeField] public string foodDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec pur";
     [SerializeField] public int cost = 10;
-    // [SerializeField] public Ingredient[] ingredients;
 }

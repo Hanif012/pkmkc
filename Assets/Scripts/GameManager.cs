@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
 using UnityEngine;
 
 public interface IGameObserver
@@ -11,120 +9,107 @@ public interface IGameObserver
 [RequireComponent(typeof(MusicManager))]
 public class GameManager : MonoBehaviour
 {
-    public enum GameState
-    {
-        StartDay,
-        Pause,
-        BreakTime,
-        Play,
-        EndOfDay
-    }
+    [Header("Game Settings")]
+    [SerializeField] private DailyMission dailyMission;
+
+    [Header("Game GUI")]
     [SerializeField] private GameObject gameGUI;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject endOfDayMenu;
     [SerializeField] private GameObject startDayMenu;
     [SerializeField] private GameObject breakTimeMenu;
-    [SerializeField] private GameObject TransitionScene;
-    [SerializeField] private DailyMission dailyMission;
+    [SerializeField] private GameObject transitionScene;
 
-    // public GameTime time = new(8, 0);
+    [Header("Game Components")]
+    [SerializeField] private GameObject laptop;
+    [SerializeField] private GameObject oven;
+    [SerializeField] private GameObject bank;
+
+    public enum GameState 
+    { 
+        StartDay, 
+        Pause, 
+        Play, 
+        EndOfDay }
+
     public static GameManager Instance { get; private set; }
-    public MusicManager musicManager;
-    public GameState gameState = GameState.StartDay;
-    
-    private float orderCooldown = 0;
+    public MusicManager MusicManager { get; private set; }
+    public GameState CurrentGameState { get; private set; } = GameState.StartDay;
 
-    // bool collection
+    private float orderCooldown = 5f; // Example default value
     private bool isOrderCooldown = false;
-    // private bool isStartDay = true;
-    
-    void Awake()
-    {
-        //Fetch data for mission
-        dailyMission = GetComponent<DailyMission>();
 
-        Instance = this;
-        musicManager = GetComponent<MusicManager>();
-        if(orderCooldown == 0)
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
         {
-            Debug.LogWarning("Order Cooldown is 0");
+            Destroy(gameObject);
+            return;
         }
+        Instance = this;
 
+        MusicManager = GetComponent<MusicManager>();
+        if (MusicManager == null)
+        {
+            Debug.LogError("MusicManager component is missing.");
+        }
     }
-    void Start()
+
+    private void Start()
     {
+        if (dailyMission == null || gameGUI == null)
+        {
+            Debug.LogError("One or more required GameManager components are missing.");
+        }
         GameStart();
     }
 
-    void Update()
+    private void Update()
     {
-        if(gameState == GameState.Play)
+        if (CurrentGameState == GameState.Play && !isOrderCooldown)
         {
             StartCoroutine(InitOrder());
         }
     }
-    // Will be called in even on pause
-    void FixedUpdate()
-    {
-        if(gameState == GameState.Pause)
-        {
-            // ToDo : Pause Menu
-        }
-    }
 
-    public IEnumerator InitOrder()
+    private IEnumerator InitOrder()
     {
-        
-        if (gameState == GameState.Play && !isOrderCooldown)
-        {
-            yield return new WaitForSeconds(orderCooldown);
-        }     
+        isOrderCooldown = true;
+        yield return new WaitForSeconds(orderCooldown);
+        // Add logic to initialize orders here
+        isOrderCooldown = false;
     }
 
     public void TogglePause()
     {
-        if (gameState == GameState.Pause)
+        if (CurrentGameState == GameState.Pause)
         {
             Time.timeScale = 1;
+            CurrentGameState = GameState.Play;
         }
         else
         {
             Time.timeScale = 0;
+            CurrentGameState = GameState.Pause;
         }
     }
 
     public void GameStart()
     {
-        if(gameState == GameState.StartDay)
+        if (CurrentGameState == GameState.StartDay)
         {
-            TogglePause();
-            gameState = GameState.Play;
-            TogglePause();
+            CurrentGameState = GameState.Play;
+            Time.timeScale = 1;
         }
     }
-    
+
     public void GameEnd()
     {
-        if(gameState == GameState.EndOfDay)
+        if (CurrentGameState == GameState.Play)
         {
-            TogglePause();
-
-
-
-        }
-    }
-
-    public void PauseMenu()
-    {
-        if(gameState == GameState.Pause)
-        {
-            TogglePause();
-            gameState = GameState.Play;
-        }
-        else
-        {
-            TogglePause();
-            gameState = GameState.Pause;
+            CurrentGameState = GameState.EndOfDay;
+            Time.timeScale = 0;
+            // Add end-of-day logic here
         }
     }
 }

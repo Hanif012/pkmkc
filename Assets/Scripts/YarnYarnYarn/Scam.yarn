@@ -41,7 +41,7 @@ Kamu sekarang buka toko roti yak?
     Ini temen mama kamu, yang biasa arisan bareng
     <<wait 4>>
 <<Them>>
-Jadi, kan kmu buka toko roti nih, tante kan juga jualan selai kacang
+Jadi, kan mumpung kamu buka toko roti nih, tante kan juga jualan selai kacang
 <<wait 2>>
 -> Oh, mau nitip pesan?
     <<Me>>
@@ -51,6 +51,12 @@ Jadi, kan kmu buka toko roti nih, tante kan juga jualan selai kacang
 <<Them>>
 Jadi tante mau nitip Selai Kacang di Toko Roti kamu
 <<wait 2>>
+Kemarin tante jualan selai kacang, laku keras
+<<wait 2>>
+<<Me>>
+Wih, laku keras ya
+<<wait 2>>
+<<Them>>
 
 <<wait 1>>
 <<Them>>

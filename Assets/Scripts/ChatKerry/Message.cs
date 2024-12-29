@@ -4,8 +4,9 @@ using Lean.Gui;
 
 public class Message : MonoBehaviour
 {
+
     [Header("Chat Settings")]
-    // [SerializeField] 
+    [SerializeField] private DailyMission dailyMission;
     [Header("Message Dialouge")]
     [SerializeField] private string NodeStarter = "Start";
 
@@ -22,6 +23,10 @@ public class Message : MonoBehaviour
         FetchData();
     }
 
+    public void Start()
+    {
+        
+    }
     public void FetchData()
     {
         var chat = AddChat();
@@ -34,6 +39,9 @@ public class Message : MonoBehaviour
         GameObject contact = Instantiate(ContactPrefab);
         contact.transform.SetParent(ContactParent.transform, false);
         contact.SetActive(true);
+        Sprite sprite = null; // Replace with the actual sprite you want to use
+        string contactName = "Contact Name"; // Replace with the actual contact name you want to use
+        contact.GetComponent<Contact>().ContactSetup(sprite, contactName);
         return contact;
     }
     public GameObject AddChat()

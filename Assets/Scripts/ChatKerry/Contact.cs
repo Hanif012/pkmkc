@@ -24,16 +24,14 @@ public class Contact: MonoBehaviour
             Debug.Log("ChatObj is null");
             ImageObj = GameObject.Find("Image");         
         }
-        ContactSetup();
+        // ContactSetup();
     }
 
-    // Update the Display
-    public void ContactSetup()
+    public void ContactSetup(Sprite sp, string txt)
     {
-        ImageObj.GetComponent<UnityEngine.UI.Image>().sprite = ContactImage;
-        NameObj.GetComponent<TextMeshProUGUI>().text = TextName;
+        ImageObj.GetComponent<UnityEngine.UI.Image>().sprite = sp;
+        NameObj.GetComponent<TextMeshProUGUI>().text = txt;
     }
-
     public void SetLatestChat(string latestChat)
     {
         LatestChat.GetComponent<TextMeshProUGUI>().text = latestChat;
