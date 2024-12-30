@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Lean.Gui;
 
 public class Oven : MonoBehaviour
 {
@@ -23,8 +24,9 @@ public class Oven : MonoBehaviour
 
 
     [Header("Oven Settings")]
-    [SerializeField] private float cookingTime = 10f;
+    [SerializeField] private float cookingTime;
     [SerializeField] private float cookingSpeed = 1f;
+    [SerializeField] private GameObject OvenButton;
     private float cookingProgress = 0f;
 
     private OvenState currentState = OvenState.Off;
@@ -85,7 +87,7 @@ public class Oven : MonoBehaviour
     {
         if (currentState == OvenState.Cooking)
         {
-            ovenStateText.text = "Oven is Cooking" + " " + cookingProgress.ToString("F0") + " / " + cookingTime.ToString("F0");
+            ovenStateText.text = "Oven is Cooking" + " " + cookingProgress.ToString("F0") + " / " + cookingTime;
         }
         else if (currentState == OvenState.Off)
         {
@@ -104,6 +106,7 @@ public class Oven : MonoBehaviour
             isFoodInOven = true;
             currentState = OvenState.Cooking;
             cookingProgress = 0f; // Reset cooking progress
+            cookingTime = foodButton.cookingTime; // Update cookingTime according to the pressed button
             StartCoroutine(CookFood(foodButton));
             Debug.Log("Started cooking " + foodButton.foodName);
         }
@@ -121,7 +124,7 @@ public class Oven : MonoBehaviour
         while (currentState == OvenState.Cooking)
         {
             yield return new WaitForSeconds(1f);
-            cookingProgress += cookingSpeed;
+            cookingProgress += GameTime.Instance.timeIncrement * cookingSpeed;
 
             if (cookingProgress >= cookingTime)
             {
@@ -129,6 +132,23 @@ public class Oven : MonoBehaviour
                 currentState = OvenState.FoodReady;
                 Debug.Log(foodButton.foodName + " is cooked and ready!");
             }
+        }
+    }
+
+    public void OnClick() 
+    {
+        if (currentState == OvenState.FoodReady)
+        {
+            RemoveFoodFromOven();
+        }
+        else if (currentState == OvenState.Cooking)
+        {
+            // Debug.Log("Food is still cooking.");
+        }
+        else if (currentState == OvenState.Off)
+        {
+            // Debug.Log("Oven is off."); 
+            GetComponent<LeanWindow>().TurnOn();
         }
     }
 }

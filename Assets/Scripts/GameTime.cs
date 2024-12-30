@@ -13,7 +13,7 @@ public class GameTime : MonoBehaviour
     [SerializeField]private int hour;
     [SerializeField]private int minute;
     [SerializeField]private int totalTime;
-    [SerializeField]private int timeIncrement = 3;
+    [SerializeField]public readonly int timeIncrement = 3;
 
     private List<ITimeObserver> observers = new List<ITimeObserver>();
     private float elapsedTime = 0f; // Keeps track of time
