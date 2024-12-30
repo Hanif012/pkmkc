@@ -110,5 +110,6 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "vstuc.refreshOnSave": true,
-  "vstuc.displayBackgroundProcesses": true
+  "vstuc.displayBackgroundProcesses": true,
+  "dotnet.preferCSharpExtension": true
 }

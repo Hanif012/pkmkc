@@ -26,4 +26,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/[Demo] City.unity
     guid: a3cb33d851584ee4c8fbdedbcb1ba3df
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 9e76c3740574ab345b6f75b8c60d2599,
+      type: 2}

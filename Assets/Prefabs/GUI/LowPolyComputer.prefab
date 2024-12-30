@@ -73,6 +73,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3901021952582894845, guid: b096fc2538db99948bd56669754997a0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3915762022429139602, guid: b096fc2538db99948bd56669754997a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -131,22 +136,27 @@ PrefabInstance:
     - target: {fileID: 5763432638129372059, guid: b096fc2538db99948bd56669754997a0,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5763432638129372059, guid: b096fc2538db99948bd56669754997a0,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5763432638129372059, guid: b096fc2538db99948bd56669754997a0,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 333.6
       objectReference: {fileID: 0}
     - target: {fileID: 5763432638129372059, guid: b096fc2538db99948bd56669754997a0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -83.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805422910446343857, guid: b096fc2538db99948bd56669754997a0,
+        type: 3}
+      propertyPath: NodeStarter
+      value: ScamImpersonation
       objectReference: {fileID: 0}
     - target: {fileID: 7456829029561500904, guid: b096fc2538db99948bd56669754997a0,
         type: 3}

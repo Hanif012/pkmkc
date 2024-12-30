@@ -6,7 +6,6 @@ using TMPro;
 
 public class Oven : MonoBehaviour
 {
-    // Define the oven states using an enum
     private enum OvenState
     {
         Off,
@@ -14,30 +13,23 @@ public class Oven : MonoBehaviour
         FoodReady
     }
 
-    [Header("Food SO")]
-    [SerializeField] private List<Food> foodSO;
+    [Header("SO")]
+    [SerializeField] private Foods foodSO;
 
     [Header("UI Settings")]
-    [SerializeField] private GameObject foodItemPrefab; // Prefab for each food item
-    [SerializeField] private Transform contentPanel;    // The UI panel to hold food items
-    [SerializeField] private Text ovenStateText;        // Text to display oven state
-    // [SerializeField] private  FoodSOFocus;        // Text to display food state
-    [Header("Food UI SO Fetch")]
-    [SerializeField] private Image CurrentFoodImage;        // Text to display food state
-    [SerializeField] private TextMeshProUGUI CurrentFoodName;        // Text to display food state
-    [SerializeField] private TextMeshProUGUI CurrentFoodDescription;        // Text to display food state
-    [SerializeField] private TextMeshProUGUI CurrentFoodCost;        // Text to display food state
-    [SerializeField] private TextMeshProUGUI CurrentFoodTime;        // Text to display food state
+    [SerializeField] private GameObject ButtonPrefab;
+    [SerializeField] private Transform contentPanel;
+    [SerializeField] private TextMeshProUGUI ovenStateText;
+
 
     [Header("Oven Settings")]
+    [SerializeField] private GameObject ovenText;
     [SerializeField] private float cookingTime = 10f;
     [SerializeField] private float cookingSpeed = 1f;
-    [SerializeField] private float cookingTemperature = 180f;
     private float cookingProgress = 0f;
 
-    // Local references
-    private OvenState currentState = OvenState.Off;  // Default state is Off
-    private bool isFoodInOven = false;  // This remains a bool to indicate if food is placed
+    private OvenState currentState = OvenState.Off;
+    private bool isFoodInOven = false;
 
     void Start()
     {
@@ -46,81 +38,98 @@ public class Oven : MonoBehaviour
 
     public void ToggleOven()
     {
-        if (isFoodInOven && currentState != OvenState.FoodReady)
+        switch (currentState)
         {
-            // Throw warning that food is in oven and not ready
-            Debug.Log("Food is in the oven, please wait for it to finish cooking.");
-        }
-        else
-        {
-            // Toggle oven between Off and Cooking states
-            if (currentState == OvenState.Off)
-            {
-                if (isFoodInOven)
-                {
-                    currentState = OvenState.Cooking;
-                    Debug.Log("Oven is now cooking.");
-                }
-                else
-                {
-                    Debug.Log("No food in the oven to cook.");
-                }
-            }
-            else if (currentState == OvenState.FoodReady)
-            {
+            case OvenState.Off:
+                currentState = OvenState.Cooking;
+                Debug.Log("Oven is now cooking.");
+                break;
+            case OvenState.Cooking:
+                Debug.Log("Food is in the oven, please wait for it to finish cooking.");
+                break;
+            case OvenState.FoodReady:
                 Debug.Log("Food is ready! Turn off the oven or remove the food.");
-            }
-            else
-            {
-
-                currentState = OvenState.Off;
-                Debug.Log("Oven is turned off.");
-            }
+                break;
         }
     }
 
-    void Update()
+    public void AddFoodToOven()
     {
-        if (currentState == OvenState.Cooking && isFoodInOven)
-        {
-            StartCoroutine(CookFood());
-        }
+        isFoodInOven = true;
+        Debug.Log("Food is added to the oven.");
+    }
+
+    public void RemoveFoodFromOven()
+    {
+        isFoodInOven = false;
+        currentState = OvenState.Off;
+        Debug.Log("Food is removed from the oven.");
     }
 
     private void FetchFoodSO()
     {
-        // Clear any existing items in the UI
-        foreach (Transform child in contentPanel)
-        {
-            Destroy(child.gameObject);
-        }
-
-        // Loop through the foodSO list and create UI elements for each one
         foreach (Food food in foodSO)
         {
-            GameObject newFoodItem = Instantiate(foodItemPrefab, contentPanel);
-            newFoodItem.transform.Find("FoodNameText").GetComponent<Text>().text = food.foodName;
+            GameObject foodItem = Instantiate(ButtonPrefab, contentPanel);
+            foodItem.GetComponent<FoodButton>().foodName = food.foodName;
+            foodItem.GetComponent<FoodButton>().foodImage = food.foodImage;
+            foodItem.GetComponent<FoodButton>().cookingTime = food.cookingTime;
+            foodItem.GetComponent<FoodButton>().foodDescription = food.foodDescription;
+            foodItem.GetComponent<FoodButton>().cost = food.cost;
+            Debug.Log("Fetched " + food.foodName + " from SO.");
+            foodItem.SetActive(true);
+        }
+        Debug.Log("Fetched all foods from SO. Happy debugging!");
+    }
 
-            Image foodImage = newFoodItem.transform.Find("FoodImage").GetComponent<Image>();
-            if (food.foodImage != null)
-            {
-                foodImage.sprite = food.foodImage;
-            }
-            // You can add more properties like description if necessary
+    void Update()
+    {
+        if (currentState == OvenState.Cooking)
+        {
+            ovenStateText.text = "Oven is Cooking" + " " + cookingProgress.ToString("F0") + " / " + cookingTime.ToString("F0");
+        }
+        else if (currentState == OvenState.Off)
+        {
+            ovenStateText.text = "Oven is Off";
+        }
+        else if (currentState == OvenState.FoodReady)
+        {
+            ovenStateText.text = "Food is Ready";
+        }    
+    }
+
+    public void StartCooking(FoodButton foodButton)
+    {
+        if (currentState == OvenState.Off)
+        {
+            isFoodInOven = true;
+            currentState = OvenState.Cooking;
+            cookingProgress = 0f; // Reset cooking progress
+            StartCoroutine(CookFood(foodButton));
+            Debug.Log("Started cooking " + foodButton.foodName);
+        }
+        else
+        {
+            Debug.Log("Oven is already in use.");
         }
     }
 
-    public IEnumerator CookFood()
+    private IEnumerator CookFood(FoodButton foodButton)
     {
-        yield return new WaitForSeconds(1f);
-        cookingProgress += cookingSpeed;
+        Debug.Log("Cooking " + foodButton.foodName + "...");
+        float cookingTime = foodButton.cookingTime;
 
-        if (cookingProgress >= cookingTime)
+        while (currentState == OvenState.Cooking)
         {
-            // Food is cooked, update the state
-            cookingProgress = 0f;
-            currentState = OvenState.FoodReady;
-            Debug.Log("Food is cooked and ready!");
+            yield return new WaitForSeconds(1f);
+            cookingProgress += cookingSpeed;
+
+            if (cookingProgress >= cookingTime)
+            {
+                cookingProgress = 0f;
+                currentState = OvenState.FoodReady;
+                Debug.Log(foodButton.foodName + " is cooked and ready!");
+            }
         }
     }
 }
