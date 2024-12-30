@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7bf6596001571e4a90e70a3420aac65, type: 3}
+  m_Name: Foods
+  m_EditorClassIdentifier: 
+  foodList:
+  - foodName: Bagel Slices
+    foodImage: {fileID: 21300000, guid: cd1030f9b44a9a948a0ccecb473d3326, type: 3}
+    cookingTime: 600
+    foodDescription: Potongan roti bagel yang renyah di luar namun lembut di dalam,
+      sempurna untuk disantap dengan selai atau krim keju. Cocok sebagai camilan
+      ringan atau sarapan cepat di pagi hari.
+    cost: 5000
+  - foodName: Baguette
+    foodImage: {fileID: 21300000, guid: 13e4ece7370e60d49a611b607713902f, type: 3}
+    cookingTime: 900
+    foodDescription: Roti panjang khas Prancis dengan tekstur renyah di bagian luar
+      dan lembut di dalam. Ideal untuk dinikmati bersama sup hangat atau sebagai
+      bahan dasar sandwich gourmet.
+    cost: 15000
+  - foodName: Brown Rye Bread
+    foodImage: {fileID: 21300000, guid: e7e3e7f2286500741a1ca4554fba552d, type: 3}
+    cookingTime: 1200
+    foodDescription: Roti gandum coklat yang kaya rasa dengan aroma khas. Dibuat
+      dari tepung gandum rye, roti ini menawarkan cita rasa alami yang menyehatkan,
+      sempurna untuk menemani hidangan utama atau sebagai pengganti nasi.
+    cost: 20000
+  - foodName: Bundt Caker
+    foodImage: {fileID: 21300000, guid: d9bfa99be9277c34c853dda72c7705ad, type: 3}
+    cookingTime: 1800
+    foodDescription: Kue manis dengan bentuk melingkar khas yang dihiasi dengan lapisan
+      gula atau coklat leleh. Teksturnya lembut dan rasanya manis, menjadikannya
+      pilihan sempurna untuk pencuci mulut.
+    cost: 25000
+  - foodName: Challah Bread
+    foodImage: {fileID: 21300000, guid: 14bbaa79d1c3ea241a32cef0294a1936, type: 3}
+    cookingTime: 1500
+    foodDescription: Roti tradisional Yahudi yang berbentuk anyaman, memiliki rasa
+      manis yang ringan dan tekstur lembut. Sering dinikmati saat acara khusus atau
+      sebagai teman teh di sore hari.
+    cost: 18000
+  - foodName: Croissant
+    foodImage: {fileID: 21300000, guid: 22c3883633bed724fa3fff4a88e2c798, type: 3}
+    cookingTime: 1200
+    foodDescription: Roti lapis berbentuk bulan sabit dengan tekstur yang lembut
+      dan lapisan yang bermentega. Cocok untuk dinikmati bersama kopi atau sebagai
+      camilan pagi yang mewah.
+    cost: 12000
+  - foodName: Pretzel
+    foodImage: {fileID: 21300000, guid: a8b393caedee6a545a3bf52d384a5d88, type: 3}
+    cookingTime: 900
+    foodDescription: Roti dengan bentuk unik menyerupai simpul, memiliki rasa gurih
+      dengan taburan garam. Nikmati pretzel hangat sebagai camilan cepat atau dipadukan
+      dengan saus keju.
+    cost: 10000
+  - foodName: Pumpernickel Bread
+    foodImage: {fileID: 21300000, guid: 42a0178cb131f974d9fb984c80dcf260, type: 3}
+    cookingTime: 2400
+    foodDescription: Roti gandum hitam khas Jerman dengan tekstur padat dan rasa
+      yang kaya. Cocok untuk sandwich berisi daging atau dinikmati dengan mentega
+      untuk sarapan.
+    cost: 22000
+  - foodName: Round Rye Bread
+    foodImage: {fileID: 21300000, guid: ae2d3513b2975714cb54dc23b98ed609, type: 3}
+    cookingTime: 1800
+    foodDescription: Roti bulat klasik dengan rasa gandum rye yang khas. Ideal untuk
+      disantap bersama sup atau digunakan sebagai bahan sandwich sehat.
+    cost: 18000
+  - foodName: 'Rye Crispbread  '
+    foodImage: {fileID: 21300000, guid: 20f2b253b5e0b1145a74a4a186578e14, type: 3}
+    cookingTime: 600
+    foodDescription: Roti gandum kering yang renyah, cocok untuk camilan sehat atau
+      sebagai alas untuk topping seperti keju atau irisan sayuran segar.
+    cost: 8000
+  - foodName: Sliced White Bread
+    foodImage: {fileID: 21300000, guid: f7ce2bfa5abcdc94e83cd0c23f1c0fab, type: 3}
+    cookingTime: 300
+    foodDescription: Roti putih yang lembut dan empuk, sempurna untuk sandwich klasik
+      atau dipanggang menjadi roti bakar yang lezat.
+    cost: 7000
+  - foodName: White Bread Loaf
+    foodImage: {fileID: 21300000, guid: 6f95bfe17e749994a8d703787aadb4ab, type: 3}
+    cookingTime: 600
+    foodDescription: Roti putih berbentuk loaf dengan rasa yang ringan dan tekstur
+      lembut. Cocok untuk semua jenis hidangan, mulai dari sandwich hingga roti bakar
+      sederhana.
+    cost: 10000

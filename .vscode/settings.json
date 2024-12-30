@@ -111,5 +111,6 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "vstuc.refreshOnSave": true,
   "vstuc.displayBackgroundProcesses": true,
-  "dotnet.preferCSharpExtension": true
+  "dotnet.preferCSharpExtension": true,
+  "omnisharp.useModernNet": true
 }

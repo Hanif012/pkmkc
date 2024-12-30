@@ -23,7 +23,6 @@ public class Oven : MonoBehaviour
 
 
     [Header("Oven Settings")]
-    [SerializeField] private GameObject ovenText;
     [SerializeField] private float cookingTime = 10f;
     [SerializeField] private float cookingSpeed = 1f;
     private float cookingProgress = 0f;
@@ -76,10 +75,10 @@ public class Oven : MonoBehaviour
             foodItem.GetComponent<FoodButton>().cookingTime = food.cookingTime;
             foodItem.GetComponent<FoodButton>().foodDescription = food.foodDescription;
             foodItem.GetComponent<FoodButton>().cost = food.cost;
-            Debug.Log("Fetched " + food.foodName + " from SO.");
+            // Debug.Log("Fetched " + food.foodName + " from SO.");
             foodItem.SetActive(true);
         }
-        Debug.Log("Fetched all foods from SO. Happy debugging!");
+        // Debug.Log("Fetched all foods from SO. Happy debugging!");
     }
 
     void Update()
