@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("Game Settings")]
     [SerializeField] private DailyMission dailyMission;
+    [SerializeField] private Foods foodSO;
 
     [Header("Game GUI")]
     [SerializeField] private GameObject gameGUI;
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Components")]
     [SerializeField] private GameObject laptop;
-    [SerializeField] private GameObject oven;
+    [SerializeField] private GameObject[] ovens;
     [SerializeField] private GameObject bank;
     [SerializeField] private GameObject messages;
     // [SerializeField] private GameObject ;
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("MusicManager component is missing.");
         }
+        AssignFoodSO();
     }
 
     private void Start()
@@ -70,13 +72,14 @@ public class GameManager : MonoBehaviour
             var messageComponent = messages.GetComponent<Message>();
             if (messageComponent != null)
             {
-                messageComponent.SetDailyMission(dailyMission);
+                messageComponent.FetchGameManagerToMessages(dailyMission);
             }
             else
             {
                 Debug.LogError("Message component is missing on the messages GameObject.");
             }
         }
+        
         GameStart();
     }
 
@@ -131,5 +134,22 @@ public class GameManager : MonoBehaviour
     public void CheckOrder()
     {
         
+    }
+
+    private void AssignFoodSO()
+    {
+        foreach (GameObject oven in ovens)
+        {
+            Oven ovenComponent = oven.GetComponent<Oven>();
+            if (ovenComponent != null)
+            {
+                ovenComponent.SetFoodSO(foodSO);
+            }
+            else
+            {
+                Debug.LogError("Oven component is missing on one of the oven GameObjects.");
+            }
+        }
+        // Add similar assignments for other components if needed
     }
 }

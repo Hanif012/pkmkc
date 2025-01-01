@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f18b8921340c5c439877c06adab9e2c, type: 3}
+  m_Name: Day0
+  m_EditorClassIdentifier: 
+  missionDay: 1
+  missionName: Tutorial
+  quests:
+  - questName: Mom
+    DialogueNode: Mom1
+    NPCName: Mom
+    NPCImage: {fileID: 21300000, guid: 13e4ece7370e60d49a611b607713902f, type: 3}
+    type: 0
+  - questName: Halo David
+    DialogueNode: David1
+    NPCName: David
+    NPCImage: {fileID: 21300000, guid: 13e4ece7370e60d49a611b607713902f, type: 3}
+    type: 2
+  - questName: Mirna
+    DialogueNode: ScamImpersonation
+    NPCName: Mirna
+    NPCImage: {fileID: 21300000, guid: 13e4ece7370e60d49a611b607713902f, type: 3}
+    type: 1

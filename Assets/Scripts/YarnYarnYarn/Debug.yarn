@@ -1,0 +1,30 @@
+title: debugtest
+tags:
+---
+<<Them>>
+I will scam you
+
+<<wait 1>>
+<<RemoveFood target Bagueette>>
+<<Me>>
+Oh No mein Bagueette
+<<wait 1>>
+please dont scam e 
+-> i will scam you 
+    <<jump debugtest2>>
+===
+
+title: debugtest2
+tags:
+---
+<<Them>>
+I will scam you
+<<Me>>
+Oh No mein Bagueette
+-> i will scam you 
+    <<AddFood target Baguette>>
+    <<jump debugtest>>
+-> i will Remove Bagueette
+    <<RemoveFood target Baguette>>
+    <<jump debugtest>>
+===

@@ -69,7 +69,7 @@ public class Message : MonoBehaviour
         return chat;
     }
 
-    public void SetDailyMission(DailyMission mission)
+    public void FetchGameManagerToMessages(DailyMission mission)
     {
         dailyMission = mission;
         FetchDaily();
@@ -80,4 +80,5 @@ public class Message : MonoBehaviour
         Debug.Log("Message button clicked.");
         transform.SetAsLastSibling();
     }
+
 }

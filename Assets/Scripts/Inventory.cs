@@ -1,31 +1,93 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using Yarn.Unity;
 
 public class Inventory : MonoBehaviour
 {
-    private List<Food> foods = new List<Food>();
+    public List<Food> FoodsInventory = new List<Food>();
+    
+    [SerializeField] private TextMeshProUGUI inventoryText;
+
+    private Dictionary<string, int> foodCounts = new Dictionary<string, int>();
 
     public void AddFood(Food food)
     {
-        foods.Add(food);
-        Debug.Log(food.foodName + " added to inventory.");
-    }
-
-    public void RemoveFood(Food food)
-    {
-        if (foods.Contains(food))
+        FoodsInventory.Add(food);
+        if (foodCounts.ContainsKey(food.foodName))
         {
-            foods.Remove(food);
+            foodCounts[food.foodName]++;
+        }
+        else
+        {
+            foodCounts[food.foodName] = 1;
+        }
+        Debug.Log(food.foodName + " added to inventory.");
+        UpdateInventoryText();
+    }
+    public bool RemoveFood(Food food)
+    {
+        if (FoodsInventory.Contains(food))
+        {
+            FoodsInventory.Remove(food);
+            if (foodCounts.ContainsKey(food.foodName))
+            {
+                foodCounts[food.foodName]--;
+                if (foodCounts[food.foodName] == 0)
+                {
+                    foodCounts.Remove(food.foodName);
+                }
+            }
             Debug.Log(food.foodName + " removed from inventory.");
+            UpdateInventoryText();
+            return true;
         }
         else
         {
             Debug.Log(food.foodName + " not found in inventory.");
+            return false;
+        }
+    }
+    [YarnCommand("AddFood")]
+    public void AddFoodByName(string foodName)
+    {
+        Food food = FoodsInventory.Find(f => f.foodName == foodName);
+        if (food != null)
+        {
+            AddFood(food);
+        }
+        else
+        {
+            Debug.Log(foodName + " not found in food list.");
+        }
+    }
+
+    [YarnCommand("RemoveFood")]
+    public bool RemoveFoodByName(string foodName)
+    {
+        Food food = FoodsInventory.Find(f => f.foodName == foodName);
+        if (food != null)
+        {
+            return RemoveFood(food);
+        }
+        else
+        {
+            Debug.Log(foodName + " not found in inventory.");
+            return false;
         }
     }
 
     public List<Food> GetFoods()
     {
-        return new List<Food>(foods);
+        return new List<Food>(FoodsInventory);
+    }
+
+    private void UpdateInventoryText()
+    {
+        inventoryText.text = "Inventory:\n";
+        foreach (var foodCount in foodCounts)
+        {
+            inventoryText.text += foodCount.Key + " x" + foodCount.Value + "\n";
+        }
     }
 }

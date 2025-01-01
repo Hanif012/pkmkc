@@ -16,7 +16,7 @@ public class Oven : MonoBehaviour
 
     [Header("SO")]
     [SerializeField] private Foods foodSO;
-
+    [SerializeField] private FoodButton TheFood;
     [Header("UI Settings")]
     [SerializeField] private GameObject ButtonPrefab;
     [SerializeField] private Transform contentPanel;
@@ -29,6 +29,7 @@ public class Oven : MonoBehaviour
     [SerializeField] private float cookingSpeed = 1f;
     [SerializeField] private GameObject OvenButton;
     private float cookingProgress = 0f;
+    private Inventory inventory;
 
     private OvenState currentState = OvenState.Off;
     private bool isFoodInOven = false;
@@ -36,6 +37,7 @@ public class Oven : MonoBehaviour
     void Start()
     {
         FetchFoodSO();
+        inventory = FindObjectOfType<Inventory>();
     }
 
     public void ToggleOven()
@@ -55,17 +57,25 @@ public class Oven : MonoBehaviour
         }
     }
 
-    public void AddFoodToOven()
+    public void AddFoodToOven(FoodButton foodButton)
     {
         isFoodInOven = true;
+        TheFood = foodButton;
         Debug.Log("Food is added to the oven.");
     }
 
-    public void RemoveFoodFromOven()
+    public void RemoveFoodFromOven(FoodButton foodButton)
     {
         isFoodInOven = false;
         currentState = OvenState.Off;
-        Debug.Log("Food is removed from the oven.");
+        inventory.AddFood(foodButton.food); // Add food to inventory
+        Debug.Log("Food is removed from the oven and added to inventory.");
+    }
+
+    public void SetFoodSO(Foods foodSO)
+    {
+        this.foodSO = foodSO;
+        FetchFoodSO();
     }
 
     private void FetchFoodSO()
@@ -78,6 +88,7 @@ public class Oven : MonoBehaviour
             foodItem.GetComponent<FoodButton>().cookingTime = food.cookingTime;
             foodItem.GetComponent<FoodButton>().foodDescription = food.foodDescription;
             foodItem.GetComponent<FoodButton>().cost = food.cost;
+            foodItem.GetComponent<FoodButton>().food = food;
             // Debug.Log("Fetched " + food.foodName + " from SO.");
             foodItem.SetActive(true);
         }
@@ -140,7 +151,7 @@ public class Oven : MonoBehaviour
     {
         if (currentState == OvenState.FoodReady)
         {
-            RemoveFoodFromOven();
+            RemoveFoodFromOven(TheFood);
 
         }
         else if (currentState == OvenState.Cooking)

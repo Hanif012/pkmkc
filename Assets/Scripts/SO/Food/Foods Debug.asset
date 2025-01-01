@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7bf6596001571e4a90e70a3420aac65, type: 3}
-  m_Name: Foods
+  m_Name: Foods Debug
   m_EditorClassIdentifier: 
   foodList:
   - foodName: Bagel Slices
     foodImage: {fileID: 21300000, guid: cd1030f9b44a9a948a0ccecb473d3326, type: 3}
-    cookingTime: 10
+    cookingTime: 150
     foodDescription: Potongan roti bagel yang renyah di luar namun lembut di dalam,
       sempurna untuk disantap dengan selai atau krim keju. Cocok sebagai camilan
       ringan atau sarapan cepat di pagi hari.
     cost: 5000
   - foodName: Baguette
     foodImage: {fileID: 21300000, guid: 13e4ece7370e60d49a611b607713902f, type: 3}
-    cookingTime: 10
+    cookingTime: 225
     foodDescription: Roti panjang khas Prancis dengan tekstur renyah di bagian luar
       dan lembut di dalam. Ideal untuk dinikmati bersama sup hangat atau sebagai
       bahan dasar sandwich gourmet.

@@ -16,6 +16,8 @@ public class FoodButton : MonoBehaviour
     public float cookingTime;
     public string foodDescription;
     public int cost;
+    public Food food; 
+
     [Header("UI Settings")]
     [SerializeField] private TextMeshProUGUI foodNameText;
     [SerializeField] private Image foodImageSprite;
@@ -45,7 +47,7 @@ public class FoodButton : MonoBehaviour
 
     public void BakeFood()
     {
-        oven.AddFoodToOven(); // Ensure food is added to the oven
+        oven.AddFoodToOven(this); // Ensure food is added to the oven
         oven.StartCooking(this);
     }
 }
