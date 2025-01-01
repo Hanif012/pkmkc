@@ -1,5 +1,97 @@
 title: Mom1
 tags:
 ---
-Halo
+<<declare $ready = false>>
+<<Them>>
+Halo Budi...
+Gmn Kabarnya? Mas Budi
+<<wait 1>>
+<<Me>>
+-> Siapa y?
+    Siapa y?
+    <<wait 2>>
+    <<Them>>
+    <<wait 1>>
+    <<Them>>
+    Loh, ini bukan Budi ya?
+    <<wait 2>>
+    <<Me>>
+    Canda Mak, ini kan Budi
+    <<wait 2>>
+    Ini lagi di Bakeryta
+    <<wait 2>>
+    <<Them>>
+    <<wait 1>>
+    Semoga Laris ya
+    <<wait 2>>
+    <<Me>>
+    <<wait 1>>
+    Makasih Mak
+-> Baik
+    Baik, Mak
+    <<wait 4>>
+    <<Them>>
+    Okee deh, syukur kalo gt...
+    <<wait 2>>
+    <<Me>>
+    <<wait 1>>
+    Makasih Mak
+<<wait 2>>
+<<Me>>
+Mak juga baik baik aja kan?
+<<wait 2>>
+<<Them>>
+<<wait 1>>
+Iya, baik baik aja
+<<wait 2>>
+<<Them>>
+Mak juga lagi di rumah
+<<wait 2>>
+Ini akhir-akhir ini banyak penipuan...
+<<wait 4>>
+Mak tadi lihat di TV ada yang kena tipu
+<<wait 2>>
+Kamu hati-hati ya
+<<wait 2>>
+Oiya sama Mak, pesan 1 roti buat adikmu ya
+<<wait 2>>
+-> Oke
+    <<Me>>
+    Oke, Mak
+-> Aman
+    <<Me>>
+    Aman, Mak
+    <<wait 2>>
+<<wait 2>>
+<<Them>>
+Mak tunggu ya
+<<wait 2>>
+<<Me>>
+<<wait 1>>
+Oke, Mak
+<<jump MomTunggu>>
+
+===
+
+title: MomTunggu
+tags:
+---
+-> Pesanan Siap
+    <<jump Mom2>>>>
+===
+
+title: Mom2
+tags:
+---
+<<Them>>
+    <<wait 2>>
+    <<if $ready is true>>
+        <<Me>>
+        Mak tunggu yak, Ini lagi diantar sama Ojek Online
+        <<wait 60>>
+        <<Them>>
+        Udah yak, makasih yak
+        <<Deposit 100000>>
+        <<jump MomTunggu>>
+    <<endif>>
 ===

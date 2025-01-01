@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Globalization;
@@ -20,22 +18,31 @@ public class Bank : MonoBehaviour
         UpdateBalance();
     }
 
-    public void Withdraw(int amount)
+    public bool Withdraw(int amount)
     {
-        if (balance >= amount)
+        if (balance < amount)
         {
+            Debug.Log("Insufficient fundss.");
             balance -= amount;
+            // TODO: Possible State Change
             UpdateBalance();
+            return false;
         }
-        else
-        {
-            Debug.Log("Insufficient funds.");
-        }
+        
+        balance -= amount;
+        UpdateBalance();
+        return true;
     }
 
     private void UpdateBalance()
     {
         string formattedBalance = balance.ToString("#,0", new CultureInfo("id-ID"));
         balanceText.text = $"Balance:\nRp {formattedBalance}";
+    }
+
+    public void OnBankButtonClicked()
+    {
+        Debug.Log("Bank button clicked.");
+        transform.SetAsLastSibling();
     }
 }

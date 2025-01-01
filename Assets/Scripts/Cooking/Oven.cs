@@ -21,6 +21,7 @@ public class Oven : MonoBehaviour
     [SerializeField] private GameObject ButtonPrefab;
     [SerializeField] private Transform contentPanel;
     [SerializeField] private TextMeshProUGUI ovenStateText;
+    [SerializeField] private GameObject FoodCooked;
 
 
     [Header("Oven Settings")]
@@ -87,7 +88,7 @@ public class Oven : MonoBehaviour
     {
         if (currentState == OvenState.Cooking)
         {
-            ovenStateText.text = "Oven is Cooking" + " " + cookingProgress.ToString("F0") + " / " + cookingTime;
+            ovenStateText.text = "Timer:" + " " + cookingProgress.ToString("F0") + " / " + cookingTime;
         }
         else if (currentState == OvenState.Off)
         {
@@ -140,6 +141,7 @@ public class Oven : MonoBehaviour
         if (currentState == OvenState.FoodReady)
         {
             RemoveFoodFromOven();
+
         }
         else if (currentState == OvenState.Cooking)
         {

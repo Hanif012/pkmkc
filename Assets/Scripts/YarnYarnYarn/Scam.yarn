@@ -1,10 +1,8 @@
 title: ScamImpersonation
-tags:
+tags: 
 ---
-<<declare $playerName = "Player">>
-<<declare $scammerName = "Scammer">>
 <<Them>>
-Halo $playerName?
+Halo Budi...
 <<wait 1>>
 Gmn Kbr?
 <<wait 3>>
@@ -15,7 +13,7 @@ Gmn Kbr?
 ->Baik
     Baik
     <<wait 4>> 
-Ini dgn siapa?
+    Ini dgn siapa ya?
 <<wait 1>>
 <<Them>>
 Masa kamu lupa?
@@ -57,7 +55,93 @@ Kemarin tante jualan selai kacang, laku keras
 Wih, laku keras ya
 <<wait 2>>
 <<Them>>
-
+Iya, laku keras
 <<wait 1>>
 <<Them>>
+Jadi tante mau nitip boelh?
+<<wait 2>>
+<<Me>>
+-> Boleh
+    Boleh
+    <<wait 2>>
+-> Tunggu dia jawab
+    <<wait 2>>
+
+<<Them>>
+Tante jual selai kacang 1 kg cuma Rp 50.000
+<<wait 2>>
+Cuma khusus kamu Rp. 30.000 aja
+<<wait 2>>
+<<Me>>
+-> Wah murah banget
+    Wah, murah banget
+    <<wait 2>>
+-> Terlalu murah, mencurigakan
+<<Them>>
+Iya, tante kasih diskon khusus buat kamu
+<<wait 2>>
+<<Me>>
+-> Oke, nanti aku pesan
+    Oke, nanti aku pesan
+    <<wait 2>>
+-> Tunggu dia jawab
+<<Them>>
+===
+title: ScamImpersonation2
+tags:
+---
+<<Them>>
+Halo $playerName?
+<<wait 1>>
+===
+
+title: David1
+tags:
+---
+<<Them>>
+Halo
+<<wait 1>>
+Ini dengan toko roti Bakeryta?
+<<wait 2>>
+<<Them>>
+<<Me>>
+-> Iya, ini Bakeryta
+    Iya, ini Bakeryta
+    <<wait 2>>
+-> Tunggu dia jawab
+<<Them>>
+Saya mau pesan roti
+<<wait 2>>
+<<Me>>
+-> Oke, mau pesan apa?
+    Oke, mau pesan apa?
+    <<wait 2>>
+-> Tunggu dia jawab
+<<Them>>
+Saya mau pesan roti Baguette
+<<wait 2>>
+<<Me>>
+-> Oke, berapa banyak?
+    Oke, berapa banyak?
+    <<wait 2>>
+-> Tunggu dia jawab
+    <<Them>>
+    <<wait 10>>
+<<Them>>
+Saya mau pesan 2 roti Baguette
+-> Oke, pesanan akan segera diproses
+    Oke, pesanan akan segera diproses
+
+<<wait 10>>
+<<Them>>
+Terima kasih
+// <<if $>> //TODO: Create Command
+-> Pesanan Siap
+    <<jump David2>>
+===
+
+title: David2
+tags:
+---
+Oke, pesanan akan segera diproses
 ===

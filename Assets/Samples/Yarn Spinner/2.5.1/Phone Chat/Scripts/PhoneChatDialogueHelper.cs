@@ -16,32 +16,30 @@ namespace Yarn.Unity.Example
     public class PhoneChatDialogueHelper : DialogueViewBase
     {
         DialogueRunner runner;
-
         public TMPro.TextMeshProUGUI text;
-
         public GameObject optionsContainer;
         public OptionView optionPrefab;
 
         [Tooltip("This is the chat message bubble UI object (what we are cloning for each message!)... NOT the container group for all chat bubbles")]
         public GameObject dialogueBubblePrefab;
         public float lettersPerSecond = 10f;
-        
         bool isFirstMessage = true;
-
-        // current message bubble styling settings, modified by SetSender
         bool isRightAlignment = true;
         Color currentBGColor = Color.black, currentTextColor = Color.white;
         int PaddingLeft = 0;
         int PaddingRight = 0;
+
         void Awake()
         {
             var padding = dialogueBubblePrefab.GetComponent<HorizontalLayoutGroup>();
             PaddingLeft = padding.padding.left;
             PaddingRight = padding.padding.right;
             runner = GetComponent<DialogueRunner>();
-            runner.AddCommandHandler( "Me", SetSenderMe ); // registers Yarn Command <<Me>>, which sets the current message sender to "Me"
-            runner.AddCommandHandler( "Them", SetSenderThem ); // registers Yarn Command <<They>>, which sets the current message sender to "Them" (whoever the player is talking to)
-
+            runner.AddCommandHandler( "Me", SetSenderMe ); 
+            runner.AddCommandHandler( "Them", SetSenderThem ); 
+            runner.AddCommandHandler<int>("Deposit", DepositMoney); 
+            runner.AddCommandHandler<int>("Withdraw", WithdrawMoney);
+            // runner.
             optionsContainer.SetActive(false);
         }
 
@@ -66,6 +64,22 @@ namespace Yarn.Unity.Example
             currentBGColor = Color.white;
             currentTextColor = Color.black;
         }
+
+        public void DepositMoney(int amount)
+        {
+            FindObjectOfType<Bank>().Deposit(amount);
+        }
+
+        public void WithdrawMoney(int amount)
+        {
+            FindObjectOfType<Bank>().Withdraw(amount);
+        }
+
+        // public bool IsOrderCorrect()
+        // {
+            
+        //     return true; 
+        // }
 
         // when we clone a new message box, re-style the message box based on whether SetSenderMe or SetSenderThem was most recently called
         void UpdateMessageBoxSettings() 

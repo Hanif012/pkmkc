@@ -6,8 +6,6 @@ using UnityEngine.UIElements;
 
 public class Contact: MonoBehaviour
 {
-    [SerializeField] private string TextName = "Mom";
-    [SerializeField] private Sprite ContactImage;
     [SerializeField] private GameObject NameObj;
     [SerializeField] private GameObject ImageObj;
     [SerializeField] private GameObject LatestChat;
@@ -16,12 +14,10 @@ public class Contact: MonoBehaviour
     {
         if(NameObj == null)
         {
-            Debug.Log("ChatObj is null");
             NameObj = GameObject.Find("Name");         
         }
         if(ImageObj == null)
         {
-            Debug.Log("ChatObj is null");
             ImageObj = GameObject.Find("Image");         
         }
         // ContactSetup();

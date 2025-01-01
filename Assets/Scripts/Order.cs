@@ -20,8 +20,8 @@ public class OrderClass : MonoBehaviour
         }
     }
 
-    // public OrderClass order;
-    // public Order.OrderStatus orderStatus;
-    // public Order.OrderType orderType;
-
+    // public OrderCheck(Order order)
+    // {
+    //     if(Order)
+    // }
 }

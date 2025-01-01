@@ -15,13 +15,18 @@ public class quest
     public string questName;
     public string DialogueNode = "Start";
     public string NPCName = "Them";
-    public Sprite NPCImage;
+    public Sprite NPCImage = null;
     public enum QuestType
     {
         Talk,
         Scam,
         Order
     }
+    public enum QuestStatus
+    {
+        Incomplete,
+        Complete
+    }
+    public QuestStatus status = QuestStatus.Incomplete;
     public QuestType type;
-
 }

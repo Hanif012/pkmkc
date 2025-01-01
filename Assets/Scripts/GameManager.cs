@@ -1,5 +1,7 @@
 using System.Collections;
+using System.ComponentModel.Design;
 using UnityEngine;
+using Yarn.Unity;
 
 public interface IGameObserver
 {
@@ -24,6 +26,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject laptop;
     [SerializeField] private GameObject oven;
     [SerializeField] private GameObject bank;
+    [SerializeField] private GameObject messages;
+    // [SerializeField] private GameObject ;
 
     public enum GameState 
     { 
@@ -60,6 +64,18 @@ public class GameManager : MonoBehaviour
         if (dailyMission == null || gameGUI == null)
         {
             Debug.LogError("One or more required GameManager components are missing.");
+        }
+        else
+        {
+            var messageComponent = messages.GetComponent<Message>();
+            if (messageComponent != null)
+            {
+                messageComponent.SetDailyMission(dailyMission);
+            }
+            else
+            {
+                Debug.LogError("Message component is missing on the messages GameObject.");
+            }
         }
         GameStart();
     }
@@ -111,5 +127,9 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0;
             // Add end-of-day logic here
         }
+    }
+    public void CheckOrder()
+    {
+        
     }
 }
