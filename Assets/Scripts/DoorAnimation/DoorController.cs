@@ -7,7 +7,6 @@ public class DoorController : MonoBehaviour
     public Animator doorAnimator;
     private bool isOpen = false;
 
-    // Function to trigger the door interaction
     public void Interact()
     {
         if (!isOpen)

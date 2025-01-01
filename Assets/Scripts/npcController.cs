@@ -14,13 +14,15 @@ public class npcController : MonoBehaviour
     public float minDistance = 0;    
     public int index = 0;
 
+    public bool isWaving = true;
+
     private DoorController door;
 
-    NewAudioManager audioManager;
-    // private void Awake()
-    // {
-    //     audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<NewAudioManager>();
-    // }
+    private NewAudioManager audioManager;
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<NewAudioManager>();
+    }
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -53,26 +55,19 @@ public class npcController : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, PathPoints[index].position) < minDistance)
         {
-            if (index == 4)
+            if (index == 4 || index == 8)
             {
                 StartCoroutine(PlayOpenDoorAnimation());
                 index++;
+            }
+            else if (index == 6 && isWaving)
+            {
+                StartCoroutine(PlayWavingAnimation());
             }
             else if (index == 6)
             {
-                StartCoroutine(PlayWavingAnimation());
-                // Debug.Log("pp");
-                index++;
-            }
-            else if (index == 7)
-            {
                 animator.SetFloat("vertical", 0);
                 animator.SetFloat("horizontal", 0); 
-            }
-            else if (index == 9)
-            {
-                StartCoroutine(PlayOpenDoorAnimation());
-                index++;
             }
             else if (index < PathPoints.Length - 1)
             {
@@ -95,11 +90,14 @@ public class npcController : MonoBehaviour
 
     IEnumerator PlayWavingAnimation()
     {
+        isWaving = true;
         agent.isStopped = true;
         animator.SetFloat("vertical", 0);
         animator.SetFloat("horizontal", -1);
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.7f);
+
+        isWaving = false;
     }
 
     IEnumerator PlayOpenDoorAnimation()
@@ -108,15 +106,21 @@ public class npcController : MonoBehaviour
         animator.SetFloat("vertical", -1);
         animator.SetFloat("horizontal", 0);
 
-        door.Interact();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.2f);
 
+        door.Interact();
+        audioManager.PlaySFX(audioManager.Door);
+        
+        yield return new WaitForSeconds(1.5f);
+
+
+        animator.Rebind();
 
         agent.isStopped = false;
 
         animator.SetFloat("vertical", 1);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         door.Interact(); 
 
@@ -128,7 +132,7 @@ public class npcController : MonoBehaviour
         animator.SetFloat("horizontal", 1);
 
         
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.8f);
 
         transform.Rotate(0, 180, 0);
 

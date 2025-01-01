@@ -8,7 +8,7 @@ public class NewAudioManager : MonoBehaviour
     [SerializeField] AudioSource SFXSource;
 
     public AudioClip Background;
-    public AudioClip FootSteps;
+    public AudioClip Door;
     void Start()
     {
         musicSource.clip = Background;
