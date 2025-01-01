@@ -16,17 +16,20 @@ MonoBehaviour:
   missionName: Tutorial
   quests:
   - questName: Mom
-    DialogueNode: Mom1
+    DialogueNode: debugtest
     NPCName: Mom
     NPCImage: {fileID: 21300000, guid: 13e4ece7370e60d49a611b607713902f, type: 3}
+    status: 0
     type: 0
   - questName: Halo David
     DialogueNode: David1
     NPCName: David
     NPCImage: {fileID: 21300000, guid: 13e4ece7370e60d49a611b607713902f, type: 3}
+    status: 0
     type: 2
   - questName: Mirna
     DialogueNode: ScamImpersonation
     NPCName: Mirna
     NPCImage: {fileID: 21300000, guid: 13e4ece7370e60d49a611b607713902f, type: 3}
+    status: 0
     type: 1

@@ -25,6 +25,7 @@ public class Inventory : MonoBehaviour
         Debug.Log(food.foodName + " added to inventory.");
         UpdateInventoryText();
     }
+
     public bool RemoveFood(Food food)
     {
         if (FoodsInventory.Contains(food))
@@ -48,27 +49,30 @@ public class Inventory : MonoBehaviour
             return false;
         }
     }
-    [YarnCommand("AddFood")]
-    public void AddFoodByName(string foodName)
+    // [YarnFunction("AddFood")]
+    public bool AddFoodByName(string foodName)
     {
         Food food = FoodsInventory.Find(f => f.foodName == foodName);
         if (food != null)
         {
             AddFood(food);
+            return true;
         }
         else
         {
             Debug.Log(foodName + " not found in food list.");
+            return false;
         }
     }
 
-    [YarnCommand("RemoveFood")]
+    // [YarnCommand("RemoveFood")]
     public bool RemoveFoodByName(string foodName)
     {
         Food food = FoodsInventory.Find(f => f.foodName == foodName);
         if (food != null)
         {
-            return RemoveFood(food);
+            RemoveFood(food);
+            return true;
         }
         else
         {

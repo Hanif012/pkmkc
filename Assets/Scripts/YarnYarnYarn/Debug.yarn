@@ -5,7 +5,7 @@ tags:
 I will scam you
 
 <<wait 1>>
-<<RemoveFood target Bagueette>>
+// <<RemoveFood target Bagueette>>
 <<Me>>
 Oh No mein Bagueette
 <<wait 1>>
@@ -21,10 +21,10 @@ tags:
 I will scam you
 <<Me>>
 Oh No mein Bagueette
--> i will scam you 
-    <<AddFood target Baguette>>
-    <<jump debugtest>>
+-> i will add food
+    // <<>>>>
+    <<jump debugtest2>>
 -> i will Remove Bagueette
-    <<RemoveFood target Baguette>>
-    <<jump debugtest>>
+    // <<RemoveFood string "Bagueette">>
+    <<jump debugtest2>>
 ===

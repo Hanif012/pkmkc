@@ -52,7 +52,7 @@ public class Message : MonoBehaviour
         contact.transform.SetParent(ContactParent.transform, false);
         contact.SetActive(true);
         contact.GetComponent<Contact>().ContactSetup(contactSprite, contactName);
-        Debug.Log($"Added {contactName} to Contact.");
+        // Debug.Log($"Added {contactName} to Contact.");
         return contact;
     }
     public GameObject AddChat(string nodeStarter = "Start")

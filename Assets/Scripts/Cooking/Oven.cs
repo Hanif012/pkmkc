@@ -15,7 +15,7 @@ public class Oven : MonoBehaviour
     }
 
     [Header("SO")]
-    [SerializeField] private Foods foodSO;
+    [SerializeField] public Foods FoodSO;
     [SerializeField] private FoodButton TheFood;
     [Header("UI Settings")]
     [SerializeField] private GameObject ButtonPrefab;
@@ -36,7 +36,6 @@ public class Oven : MonoBehaviour
 
     void Start()
     {
-        FetchFoodSO();
         inventory = FindObjectOfType<Inventory>();
     }
 
@@ -74,13 +73,13 @@ public class Oven : MonoBehaviour
 
     public void SetFoodSO(Foods foodSO)
     {
-        this.foodSO = foodSO;
+        this.FoodSO = foodSO;
         FetchFoodSO();
     }
 
     private void FetchFoodSO()
     {
-        foreach (Food food in foodSO)
+        foreach (Food food in FoodSO)
         {
             GameObject foodItem = Instantiate(ButtonPrefab, contentPanel);
             foodItem.GetComponent<FoodButton>().foodName = food.foodName;
@@ -89,10 +88,8 @@ public class Oven : MonoBehaviour
             foodItem.GetComponent<FoodButton>().foodDescription = food.foodDescription;
             foodItem.GetComponent<FoodButton>().cost = food.cost;
             foodItem.GetComponent<FoodButton>().food = food;
-            // Debug.Log("Fetched " + food.foodName + " from SO.");
             foodItem.SetActive(true);
         }
-        // Debug.Log("Fetched all foods from SO. Happy debugging!");
     }
 
     void Update()
