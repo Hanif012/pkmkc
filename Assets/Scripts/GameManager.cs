@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     [SerializeField] private DailyMission dailyMission;
     [SerializeField] private Foods foodSO;
+    [SerializeField] private OrderClass orderClass;
 
     [Header("Game GUI")]
     [SerializeField] private GameObject gameGUI;
@@ -22,20 +23,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject startDayMenu;
     [SerializeField] private GameObject breakTimeMenu;
     [SerializeField] private GameObject transitionScene;
+    [SerializeField] private GameObject BakeFinished;
 
     [Header("Game Components")]
     [SerializeField] private GameObject laptop;
-    [SerializeField] private GameObject bank;
+    [SerializeField] private Bank bank;
     [SerializeField] private GameObject messages;
+
     // Remove the ovens array
     // [SerializeField] private Oven[] ovens;
 
-    public enum GameState 
-    { 
-        StartDay, 
-        Pause, 
-        Play, 
-        EndOfDay }
+    public enum GameState
+    {
+        StartDay,
+        Pause,
+        Play,
+        EndOfDay
+    }
 
     public static GameManager Instance { get; private set; }
     public MusicManager MusicManager { get; private set; }
@@ -57,6 +61,27 @@ public class GameManager : MonoBehaviour
         if (MusicManager == null)
         {
             Debug.LogError("MusicManager component is missing.");
+        }
+
+        if (bank == null)
+        {
+            Debug.LogError("Bank component is missing.");
+            bank = FindAnyObjectByType<Bank>();
+        }
+
+        if (orderClass == null)
+        {
+            if (FindAnyObjectByType<OrderClass>() != null)
+            {
+                Debug.LogError("OrderClass component is missing.");
+                orderClass = FindAnyObjectByType<OrderClass>();
+            }
+            else
+            {
+                // Debug.LogError("OrderClass component is missing and no OrderClass object found in the scene. Crreating a new OrderClass object."); //TODO: Create a new OrderClass object
+                GameObject orderClassObject = new GameObject("OrderClass");
+                orderClass = orderClassObject.AddComponent<OrderClass>();
+            }
         }
     }
 
@@ -138,6 +163,23 @@ public class GameManager : MonoBehaviour
         foreach (Oven oven in ovens)
         {
             oven.SetFoodSO(foodSO);
+            orderClass.availableFoods = foodSO;
         }
+    }
+
+    [YarnCommand("DepositToBank")]
+    public void DepositToBank(int amount)
+    {
+        bank.Deposit(amount);
+    }
+
+    [YarnCommand("WithdrawFromBank")]
+    public bool WithdrawFromBank(int amount)
+    {
+        if (bank.Withdraw(amount))
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -6,7 +6,8 @@ public class Bank : MonoBehaviour
 {
     public int balance = 100000;
     public TextMeshProUGUI balanceText;
-
+    [SerializeField] private GameObject prefabBankButton;
+    
     void Start()
     {
         UpdateBalance();

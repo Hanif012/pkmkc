@@ -149,7 +149,8 @@ public class Oven : MonoBehaviour
         if (currentState == OvenState.FoodReady)
         {
             RemoveFoodFromOven(TheFood);
-
+            //TODO: ADD Inventory
+            //TODO:and Bread Shiny
         }
         else if (currentState == OvenState.Cooking)
         {

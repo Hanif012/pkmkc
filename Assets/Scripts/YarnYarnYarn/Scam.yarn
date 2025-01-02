@@ -135,7 +135,7 @@ Saya mau pesan 2 roti Baguette
 <<wait 10>>
 <<Them>>
 Terima kasih
-// <<if $>> //TODO: Create Command
+// <<if $>> //TODO: Create STORY DUMBASS
 -> Pesanan Siap
     <<jump David2>>
 ===

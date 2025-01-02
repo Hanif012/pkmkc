@@ -184,7 +184,6 @@ public class QuibliEditor : BaseShaderGUI {
                 _target.SetVector("_LightmapDirection", direction);
             }
 
-            // TODO: Disable texture impact via keyword.
             if (_target.HasProperty("_TextureImpact") && _target.HasProperty("_BaseMap") &&
                 _target.GetTexture("_BaseMap") == null) {
                 _target.SetFloat("_TextureImpact", 0f);

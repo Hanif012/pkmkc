@@ -49,6 +49,12 @@ public class Inventory : MonoBehaviour
             return false;
         }
     }
+
+    public bool HasFood(Food food)
+    {
+        return foodCounts.ContainsKey(food.foodName) && foodCounts[food.foodName] > 0;
+    }
+
     // [YarnFunction("AddFood")]
     public bool AddFoodByName(string foodName)
     {
@@ -71,6 +77,11 @@ public class Inventory : MonoBehaviour
         Food food = FoodsInventory.Find(f => f.foodName == foodName);
         if (food != null)
         {
+            if (!HasFood(food))
+            {
+                Debug.Log(foodName + " not found in inventory.");
+                return false;
+            }
             RemoveFood(food);
             return true;
         }
