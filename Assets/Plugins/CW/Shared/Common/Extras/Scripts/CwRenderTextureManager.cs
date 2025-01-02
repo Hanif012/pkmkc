@@ -189,7 +189,7 @@ namespace CW.Common
 		{
 			var renderTexture = RenderTexture.GetTemporary(desc);
 
-			// TODO: For some reason RenderTexture.GetTemporary ignores the useMipMap flag?!
+			//  For some reason RenderTexture.GetTemporary ignores the useMipMap flag?!
 			if (renderTexture.useMipMap != desc.useMipMap)
 			{
 				renderTexture.Release();

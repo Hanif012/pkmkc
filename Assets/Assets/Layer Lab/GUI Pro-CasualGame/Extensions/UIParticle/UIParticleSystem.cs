@@ -223,7 +223,7 @@ namespace UnityEngine.UI.Extensions.CasualGame
                             frame = Mathf.FloorToInt(frameProgress * textureSheetAnimation.numTilesX);
 
                             int row = textureSheetAnimation.rowIndex;
-                            //                    if (textureSheetAnimation.useRandomRow) { // FIXME - is this handled internally by rowIndex?
+                            //                    if (textureSheetAnimation.useRandomRow) { //  - is this handled internally by rowIndex?
                             //                        row = Random.Range(0, textureSheetAnimation.numTilesY, using: particle.randomSeed);
                             //                    }
                             frame += row * textureSheetAnimation.numTilesX;

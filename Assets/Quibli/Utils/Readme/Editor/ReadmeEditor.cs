@@ -286,7 +286,7 @@ public class ReadmeEditor : Editor {
 
     private void ClearPackageCache() {
         string path = string.Empty;
-        // TODO: Use UPM_CACHE_ROOT.
+        // : Use UPM_CACHE_ROOT.
         if (Application.platform == RuntimePlatform.OSXEditor) {
             path = "~/Library/Unity/Asset Store-5.x/Dustyroom/";
         }

@@ -16,7 +16,7 @@ struct PostProcessVaryings
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
-// TODO: Replace with Common.hlsl from URP.
+//  Replace with Common.hlsl from URP.
 PostProcessVaryings FullScreenTrianglePostProcessVertexProgram(
     FullScreenTrianglePostProcessAttributes input) {
     PostProcessVaryings output;

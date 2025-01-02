@@ -8,7 +8,7 @@
 // #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
 // #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
 
-// TODO: Add a variant with _ADDITIONAL_LIGHTS
+// : Add a variant with _ADDITIONAL_LIGHTS
 // (https://blog.unity.com/technology/custom-lighting-in-shader-graph-expanding-your-graphs-in-2019).
 void MainLight_half(float3 WorldPosition, out half3 Direction, out half3 Color, out half DistanceAttenuation, out half ShadowAttenuation) {
     #ifdef SHADERGRAPH_PREVIEW
