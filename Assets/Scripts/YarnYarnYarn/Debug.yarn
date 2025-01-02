@@ -28,5 +28,9 @@ Oh No mein Bagueette
     // <<RemoveFood string "Bagueette">> // TODO: ADD Scam Command
     <<jump debugtest2>>
 -> I will check if the order is correct // TODO: Add Order System
+    <<CheckOrderInventory target Bagueette>>
+    <<jump debugtest2>>
+-> GenerateOrder
+    <<GenerateOrder string Bagueette>>
     <<jump debugtest2>>
 ===

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using UnityEngine;
 using Yarn.Unity;
@@ -47,6 +48,8 @@ public class GameManager : MonoBehaviour
 
     private float orderCooldown = 5f; // Example default value
     private bool isOrderCooldown = false;
+
+    private List<OrderClass> orders = new List<OrderClass>();
 
     private void Awake()
     {
@@ -106,6 +109,9 @@ public class GameManager : MonoBehaviour
 
         AssignFoodSO();
         GameStart();
+
+        // Initialize orders
+        InitializeOrders();
     }
 
     private void Update()
@@ -164,6 +170,25 @@ public class GameManager : MonoBehaviour
         {
             oven.SetFoodSO(foodSO);
             orderClass.availableFoods = foodSO;
+        }
+    }
+
+    private void InitializeOrders()
+    {
+        for (int i = 0; i < 5; i++) // Example: Create 5 orders
+        {
+            GameObject orderObject = new GameObject("Order" + i);
+            OrderClass order = orderObject.AddComponent<OrderClass>();
+            order.SetFoodSO(foodSO);
+            orders.Add(order);
+        }
+    }
+
+    public void AddOrder(Food food, int count)
+    {
+        if (orders.Count > 0)
+        {
+            orders[0].AddOrder(food, count); // Example: Add to the first order
         }
     }
 
