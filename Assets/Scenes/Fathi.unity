@@ -3036,7 +3036,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005649006, y: -0.004760742}
+  m_AnchoredPosition: {x: -0.0005649006, y: -0.0043640137}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &346274835
@@ -8828,7 +8828,7 @@ GameObject:
   - component: {fileID: 1158955254}
   - component: {fileID: 1158955255}
   m_Layer: 5
-  m_Name: Tap Button (LeanButton) Laptop
+  m_Name: Tap Button (LeanButton) Cashier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9793,7 +9793,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005649006, y: -0.004760742}
+  m_AnchoredPosition: {x: -0.0005649006, y: -0.0043640137}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1278543215
@@ -16031,7 +16031,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Laptop
+  m_Text: Cashier
 --- !u!222 &2099574437
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16175,7 +16175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005649006, y: -0.004760742}
+  m_AnchoredPosition: {x: -0.0005649006, y: -0.0043640137}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2108426583
@@ -32778,7 +32778,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00087306363, y: -0.011205713}
+  m_AnchoredPosition: {x: 0.00087306363, y: -0.005511449}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6893320640870095872
@@ -36261,7 +36261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005649006, y: -0.004760742}
+  m_AnchoredPosition: {x: -0.0005649006, y: -0.0043640137}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8484058070949920868

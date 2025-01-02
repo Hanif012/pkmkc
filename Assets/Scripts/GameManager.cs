@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     [SerializeField] private DailyMission dailyMission;
     [SerializeField] private Foods foodSO;
-    [SerializeField] private OrderClass orderClass;
+    // [SerializeField] private OrderClass orderClass;
 
     [Header("Game GUI")]
     [SerializeField] private GameObject gameGUI;
@@ -72,20 +72,20 @@ public class GameManager : MonoBehaviour
             bank = FindAnyObjectByType<Bank>();
         }
 
-        if (orderClass == null)
-        {
-            if (FindAnyObjectByType<OrderClass>() != null)
-            {
-                Debug.LogError("OrderClass component is missing.");
-                orderClass = FindAnyObjectByType<OrderClass>();
-            }
-            else
-            {
-                // Debug.LogError("OrderClass component is missing and no OrderClass object found in the scene. Crreating a new OrderClass object."); //TODO: Create a new OrderClass object
-                GameObject orderClassObject = new GameObject("OrderClass");
-                orderClass = orderClassObject.AddComponent<OrderClass>();
-            }
-        }
+        // if (orderClass == null)
+        // {
+        //     if (FindAnyObjectByType<OrderClass>() != null)
+        //     {
+        //         Debug.LogError("OrderClass component is missing.");
+        //         orderClass = FindAnyObjectByType<OrderClass>();
+        //     }
+        //     else
+        //     {
+        //         // Debug.LogError("OrderClass component is missing and no OrderClass object found in the scene. Crreating a new OrderClass object."); //TODO: Create a new OrderClass object
+        //         GameObject orderClassObject = new GameObject("OrderClass");
+        //         orderClass = orderClassObject.AddComponent<OrderClass>();
+        //     }
+        // }
     }
 
     private void Start()
@@ -169,15 +169,15 @@ public class GameManager : MonoBehaviour
         foreach (Oven oven in ovens)
         {
             oven.SetFoodSO(foodSO);
-            orderClass.availableFoods = foodSO;
         }
     }
 
     private void InitializeOrders()
     {
-        for (int i = 0; i < 5; i++) // Example: Create 5 orders
+        for (int i = 0; i < 1; i++) // Example: Create 5 orders
         {
-            GameObject orderObject = new GameObject("Order" + i);
+            // GameObject orderObject = new GameObject("Order" + i);
+            GameObject orderObject = new GameObject("Order");
             OrderClass order = orderObject.AddComponent<OrderClass>();
             order.SetFoodSO(foodSO);
             orders.Add(order);
@@ -188,17 +188,17 @@ public class GameManager : MonoBehaviour
     {
         if (orders.Count > 0)
         {
-            orders[0].AddOrder(food, count); // Example: Add to the first order
+            orders[0].AddOrder(food, count);
         }
     }
 
-    [YarnCommand("DepositToBank")]
+    // [YarnCommand("DepositToBank")]
     public void DepositToBank(int amount)
     {
         bank.Deposit(amount);
     }
 
-    [YarnCommand("WithdrawFromBank")]
+    // [YarnCommand("WithdrawFromBank")]
     public bool WithdrawFromBank(int amount)
     {
         if (bank.Withdraw(amount))

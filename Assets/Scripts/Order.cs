@@ -34,7 +34,7 @@ public class OrderClass : MonoBehaviour
         Debug.Log(count + " " + food.foodName + "(s) added to order.");
     }
 
-    [YarnCommand("CheckOrderInventory")]
+    // [YarnCommand("CheckOrderInventory")]
     public bool CheckOrderInventory()
     {   
         foreach (KeyValuePair<Food, int> entry in FoodsOrder)
@@ -54,7 +54,7 @@ public class OrderClass : MonoBehaviour
         return true;
     }
 
-    [YarnCommand("GenerateOrder")]
+    // [YarnCommand("GenerateOrder")]
     public string GenerateOrder(string orderOutput)
     {
         FoodsOrder.Clear();
@@ -81,7 +81,7 @@ public class OrderClass : MonoBehaviour
         return orderOutput;
     }
 
-    [YarnCommand("FulfillOrder")]
+    // [YarnCommand("FulfillOrder")]
     public void FulfillOrder()
     {
         foreach (KeyValuePair<Food, int> entry in FoodsOrder)
@@ -97,5 +97,5 @@ public class OrderClass : MonoBehaviour
         Debug.Log("Order fulfilled. Rp 1000 added to balance.");
     }
 
-    //TODO: Test this method
+    //TODO: Test this method(nah id win)
 }

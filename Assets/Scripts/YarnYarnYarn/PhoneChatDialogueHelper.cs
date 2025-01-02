@@ -35,11 +35,12 @@ namespace Yarn.Unity.Example
             PaddingLeft = padding.padding.left;
             PaddingRight = padding.padding.right;
             runner = GetComponent<DialogueRunner>();
-            runner.AddCommandHandler( "Me", SetSenderMe ); 
-            runner.AddCommandHandler( "Them", SetSenderThem ); 
+            runner.AddCommandHandler("Me", SetSenderMe); 
+            runner.AddCommandHandler("Them", SetSenderThem); 
             runner.AddCommandHandler<int>("Deposit", DepositMoney); 
             runner.AddCommandHandler<int>("Withdraw", WithdrawMoney);
-            // runner.
+            runner.AddCommandHandler<string>("AddOrder", AddOrder);
+            runner.AddCommandHandler<string>("AddFood", AddFood);
             optionsContainer.SetActive(false);
         }
 
@@ -75,11 +76,40 @@ namespace Yarn.Unity.Example
             FindObjectOfType<Bank>().Withdraw(amount);
         }
 
-        // public bool IsOrderCorrect()
-        // {
-            
-        //     return true; 
-        // }
+        public void AddOrder(string foodName)
+        {
+            var orderClass = FindObjectOfType<OrderClass>();
+            var food = orderClass.availableFoods.foodList.Find(f => f.foodName == foodName);
+            if (food != null)
+            {
+                orderClass.AddOrder(food, 1);
+                Debug.Log(food.foodName + " added to order.");
+                return;
+            }
+            else
+            {
+                Debug.Log(foodName + " not found in available foods.");
+                return;
+            }
+        }
+
+        public void AddFood(string foodName)
+        {
+            var inventory = FindObjectOfType<Inventory>();
+            var food = inventory.FoodsInventory.Find(f => f.foodName == foodName);
+            if (food != null)
+            {
+                inventory.AddFood(food);
+                return;
+            }
+            else
+            {
+                Debug.Log(foodName + " not found in food list.");
+                return;
+            }
+        }
+
+
 
         // when we clone a new message box, re-style the message box based on whether SetSenderMe or SetSenderThem was most recently called
         void UpdateMessageBoxSettings() 

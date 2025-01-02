@@ -23,14 +23,16 @@ I will scam you
 Oh No mein Bagueette
 -> i will add food
     // <<>>>> //TODO: ADD Scam Food Command
+    <<AddFood baguette>>
+    <<AddFood Baguette>>
     <<jump debugtest2>>
 -> i will Remove Bagueette
     // <<RemoveFood string "Bagueette">> // TODO: ADD Scam Command
     <<jump debugtest2>>
 -> I will check if the order is correct // TODO: Add Order System
-    <<CheckOrderInventory target Bagueette>>
+    // <<CheckOrderInventory target Bagueette>>
     <<jump debugtest2>>
 -> GenerateOrder
-    <<GenerateOrder string Bagueette>>
+    // <<AddOrder Baguette>>
     <<jump debugtest2>>
 ===
