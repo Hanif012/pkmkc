@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.Examples;
 using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
@@ -8,7 +9,11 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject PauseMenuUI;
 
+    public GameObject PauseButton;
+
     NewAudioManager audioManager;
+
+    CameraController cameraController;
 
     void Awake()
     {
@@ -32,6 +37,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         PauseMenuUI.SetActive(false);
+        PauseButton.SetActive(true);
         Time.timeScale = 1f;
         GamePaused = false;
         audioManager.ResumeBackgroundMusic();
@@ -40,6 +46,7 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         PauseMenuUI.SetActive(true);
+        PauseButton.SetActive(false);
         Time.timeScale = 0f;
         GamePaused = true;
         audioManager.PauseBackgroundMusic();
@@ -47,6 +54,10 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
-        // SceneManager.LoadScene("MainMenu");
+        PauseMenuUI.SetActive(false);
+        PauseButton.SetActive(true);
+        Time.timeScale = 1f;
+        GamePaused = false;
+        cameraController.Menu();
     }
 }
