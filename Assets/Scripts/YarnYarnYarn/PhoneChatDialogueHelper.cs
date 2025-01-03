@@ -37,10 +37,11 @@ namespace Yarn.Unity.Example
             runner = GetComponent<DialogueRunner>();
             runner.AddCommandHandler("Me", SetSenderMe); 
             runner.AddCommandHandler("Them", SetSenderThem); 
-            runner.AddCommandHandler<int>("Deposit", DepositMoney); 
-            runner.AddCommandHandler<int>("Withdraw", WithdrawMoney);
+            runner.AddCommandHandler<int,string>("Deposit", DepositMoney); 
+            runner.AddCommandHandler<int,string>("Withdraw", WithdrawMoney);
             runner.AddCommandHandler<string>("AddOrder", AddOrder);
             runner.AddCommandHandler<string>("AddFood", AddFood);
+            runner.AddCommandHandler<string>("RemoveFood", RemoveFood);
             optionsContainer.SetActive(false);
         }
 
@@ -66,17 +67,80 @@ namespace Yarn.Unity.Example
             currentTextColor = Color.black;
         }
 
-        public void DepositMoney(int amount)
+        public void DepositMoney(int amount, string message)
         {
-            FindObjectOfType<Bank>().Deposit(amount);
+            FindObjectOfType<Bank>().Deposit(amount, message);
         }
 
-        public void WithdrawMoney(int amount)
+        public void WithdrawMoney(int amount, string message)
         {
-            FindObjectOfType<Bank>().Withdraw(amount);
+            var bank =  FindObjectOfType<Bank>();
+            if(bank == null)
+            {
+                Debug.Log("Bank not found.");
+                return;
+            }
+            if(bank.Withdraw(amount, message))
+            {
+                Debug.Log("Withdrawn " + amount + " from bank.");
+            }
+            else
+            {
+                Debug.Log("Insufficient funds.");
+            }
         }
 
-        public void AddOrder(string foodName)
+        public void WithdrawMoneyMessage(int amount, string message)
+        {
+            var bank =  FindObjectOfType<Bank>();
+            if(bank == null)
+            {
+                Debug.Log("Bank not found.");
+                return;
+            }
+            if(bank.Withdraw(amount, message))
+            {
+                Debug.Log("Withdrawn " + amount + " from bank.");
+            }
+            else
+            {
+                Debug.Log("Insufficient funds.");
+            }
+        }
+
+
+        public void AddFood(string foodName)
+        {
+            var inventory = FindObjectOfType<Inventory>();
+            var food = inventory.FoodsInventory.Find(f => f.foodName == foodName);
+            if (food != null)
+            {
+                inventory.AddFood(food);
+                return;
+            }
+            else
+            {
+                Debug.Log(foodName + " not found in food list.");
+                return;
+            }
+        }
+
+        public void RemoveFood(string foodName)
+        {
+            var inventory = FindObjectOfType<Inventory>();
+            var food = inventory.FoodsInventory.Find(f => f.foodName == foodName);
+            if (food != null)
+            {
+                inventory.RemoveFood(food);
+                return;
+            }
+            else
+            {
+                Debug.Log(foodName + " not found in food list.");
+                return;
+            }
+        }
+        public void AddOrder(string foodName) //TODO: Faulty implementation
         {
             var orderClass = FindObjectOfType<OrderClass>();
             var food = orderClass.availableFoods.foodList.Find(f => f.foodName == foodName);
@@ -93,18 +157,19 @@ namespace Yarn.Unity.Example
             }
         }
 
-        public void AddFood(string foodName)
+        public void RemoveOrder(string foodName) //TODO: Faulty implementation
         {
-            var inventory = FindObjectOfType<Inventory>();
-            var food = inventory.FoodsInventory.Find(f => f.foodName == foodName);
+            var orderClass = FindObjectOfType<OrderClass>();
+            var food = orderClass.availableFoods.foodList.Find(f => f.foodName == foodName);
             if (food != null)
             {
-                inventory.AddFood(food);
+                orderClass.FoodsOrder.Remove(food);
+                Debug.Log(food.foodName + " removed from order.");
                 return;
             }
             else
             {
-                Debug.Log(foodName + " not found in food list.");
+                Debug.Log(foodName + " not found in available foods.");
                 return;
             }
         }

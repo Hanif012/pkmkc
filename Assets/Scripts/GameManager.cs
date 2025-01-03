@@ -193,18 +193,18 @@ public class GameManager : MonoBehaviour
     }
 
     // [YarnCommand("DepositToBank")]
-    public void DepositToBank(int amount)
-    {
-        bank.Deposit(amount);
-    }
+    // public void DepositToBank(int amount)
+    // {
+    //     bank.Deposit(amount);
+    // }
 
-    // [YarnCommand("WithdrawFromBank")]
-    public bool WithdrawFromBank(int amount)
-    {
-        if (bank.Withdraw(amount))
-        {
-            return true;
-        }
-        return false;
-    }
+    // // [YarnCommand("WithdrawFromBank")]
+    // public bool WithdrawFromBank(int amount)
+    // {
+    //     if (bank.Withdraw(amount))
+    //     {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 }

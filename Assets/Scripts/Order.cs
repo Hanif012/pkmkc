@@ -93,8 +93,8 @@ public class OrderClass : MonoBehaviour
                 inventory.RemoveFood(food);
             }
         }
-        gameManager.DepositToBank(1000);
-        Debug.Log("Order fulfilled. Rp 1000 added to balance.");
+        // gameManager.DepositToBank(1000);
+        // Debug.Log("Order fulfilled. Rp 1000 added to balance.");
     }
 
     //TODO: Test this method(nah id win)

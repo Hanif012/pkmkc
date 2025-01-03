@@ -21,18 +21,23 @@ tags:
 I will scam you
 <<Me>>
 Oh No mein Bagueette
--> i will add food
+-> i will add Bagueette
     // <<>>>> //TODO: ADD Scam Food Command
-    <<AddFood baguette>>
-    <<AddFood Baguette>>
+    <<AddFood baguette>> // Faulty since its actually "Baguette"
+    <<AddFood Baguette>> // Case Sensitive
     <<jump debugtest2>>
 -> i will Remove Bagueette
-    // <<RemoveFood string "Bagueette">> // TODO: ADD Scam Command
+    <<RemoveFood Bagueette>>
     <<jump debugtest2>>
--> I will check if the order is correct // TODO: Add Order System
-    // <<CheckOrderInventory target Bagueette>>
+-> I will check if the order is correct
     <<jump debugtest2>>
 -> GenerateOrder
     // <<AddOrder Baguette>>
+    <<jump debugtest2>>
+-> I will scam you remove 100
+    <<Withdraw 100>>
+    <<jump debugtest2>>
+-> I will scam you add 100
+    <<Deposit 100>> // Dont do "Deposit amount=100" wont WORK
     <<jump debugtest2>>
 ===

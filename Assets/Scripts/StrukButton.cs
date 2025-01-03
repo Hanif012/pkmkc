@@ -19,6 +19,7 @@ public class StrukButton : MonoBehaviour
     }
     public bool isStrukButton;
     public TextMeshProUGUI ReceiptText;
+    [SerializeField] private GameObject something;
     public struk orderDetails = new struk();
     public Text ButtonText;
     public string strukText = "Struk";
