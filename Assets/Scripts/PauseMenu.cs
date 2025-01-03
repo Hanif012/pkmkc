@@ -11,27 +11,39 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject PauseButton;
 
-    NewAudioManager audioManager;
+    private NewAudioManager audioManager;
 
-    CameraController cameraController;
+    private CameraController cameraController;
+
+    public GameObject MenuCanvas;
 
     void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<NewAudioManager>();
+
+        cameraController = GameObject.FindObjectOfType<CameraController>();
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            if(GamePaused)
+        if(MenuCanvas.gameObject.activeSelf)
+       {
+            
+       }
+       else
+       {
+            if(Input.GetKeyDown(KeyCode.Escape))
             {
-                Resume();
+                if(GamePaused)
+                {
+                    Resume();
+                }
+                else
+                {
+                   Pause();
+                }
             }
-            else
-            {
-                Pause();
-            }
-        }
+       }
+        
     }
 
     public void Resume()

@@ -27,11 +27,7 @@ public class CameraController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            if(!test)
-            {
-                Menu();
-            }
-            else
+            if(test)
             {
                 PlayGame();
             }
