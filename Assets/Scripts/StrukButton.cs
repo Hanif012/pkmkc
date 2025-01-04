@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Globalization;
-using Unity.VisualScripting;
 using UnityEngine.UI;
 
 public class StrukButton : MonoBehaviour
@@ -19,10 +18,11 @@ public class StrukButton : MonoBehaviour
     }
     public bool isStrukButton;
     public TextMeshProUGUI ReceiptText;
-    [SerializeField] private GameObject something;
     public struk orderDetails = new struk();
     public Text ButtonText;
     public string strukText = "Struk";
+    public Bank bank;
+    public OrderClass orderClass;
 
     void Awake()
     {
@@ -35,6 +35,8 @@ public class StrukButton : MonoBehaviour
             // DO NOT CHANGE THE HEIRARCY! IM TOO LAZY TO USE TAGS
             ReceiptText = transform.parent.parent.Find(strukText).GetComponent<TextMeshProUGUI>();
         }
+        bank = FindObjectOfType<Bank>();
+        orderClass = FindObjectOfType<OrderClass>();
     }
     public void onClick()
     {
@@ -65,5 +67,5 @@ public class StrukButton : MonoBehaviour
 
         ReceiptText.text = receiptText;
     }
-    
+
 }

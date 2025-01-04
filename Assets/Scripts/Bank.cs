@@ -52,7 +52,7 @@ public class Bank : MonoBehaviour
         balanceText.text = $"Balance:\nRp {formattedBalance}";
 
         GameObject bankButton = Instantiate(prefabBankButton, transform);
-        // bankButton.GetComponent<StrukButton>().SetStrukText(message);
+        bankButton.GetComponent<StrukButton>().orderDetails.OrderNames.Add(message);
     }
 
     public void OnBankButtonClicked()

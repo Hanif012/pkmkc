@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Lean.Gui;
+using DG.Tweening;
 
 public class Oven : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Oven : MonoBehaviour
     [SerializeField] private Transform contentPanel;
     [SerializeField] private TextMeshProUGUI ovenStateText;
     [SerializeField] private GameObject FoodCooked;
+    [SerializeField] private GameObject FoodPickedUpFX;
 
 
     [Header("Oven Settings")]
@@ -34,6 +36,10 @@ public class Oven : MonoBehaviour
     private OvenState currentState = OvenState.Off;
     private bool isFoodInOven = false;
 
+    void Awake()
+    {
+        FoodPickedUpFX.SetActive(false);
+    }
     void Start()
     {
         inventory = FindObjectOfType<Inventory>();
@@ -60,6 +66,7 @@ public class Oven : MonoBehaviour
     {
         isFoodInOven = true;
         TheFood = foodButton;
+        cookingTime = foodButton.cookingTime; // Update cookingTime according to the new food item
         Debug.Log("Food is added to the oven.");
     }
 
@@ -114,8 +121,8 @@ public class Oven : MonoBehaviour
         {
             isFoodInOven = true;
             currentState = OvenState.Cooking;
-            cookingProgress = 0f; // Reset cooking progress
-            cookingTime = foodButton.cookingTime; // Update cookingTime according to the pressed button
+            cookingProgress = 0f; 
+            cookingTime = foodButton.cookingTime; 
             StartCoroutine(CookFood(foodButton));
             Debug.Log("Started cooking " + foodButton.foodName);
         }
@@ -127,8 +134,7 @@ public class Oven : MonoBehaviour
 
     private IEnumerator CookFood(FoodButton foodButton)
     {
-        Debug.Log("Cooking " + foodButton.foodName + "...");
-        float cookingTime = foodButton.cookingTime;
+        // Debug.Log("Cooking " + foodButton.foodName + "...");
 
         while (currentState == OvenState.Cooking)
         {
@@ -139,7 +145,7 @@ public class Oven : MonoBehaviour
             {
                 cookingProgress = 0f;
                 currentState = OvenState.FoodReady;
-                Debug.Log(foodButton.foodName + " is cooked and ready!");
+                // Debug.Log(foodButton.foodName + " is cooked and ready!");
             }
         }
     }
@@ -149,8 +155,9 @@ public class Oven : MonoBehaviour
         if (currentState == OvenState.FoodReady)
         {
             RemoveFoodFromOven(TheFood);
-            //TODO: ADD Inventory
-            //TODO:and Bread Shiny
+            StartCoroutine(FoodPickedUp(TheFood));
+                    // Debug.LogError("Food is picked up."); 
+
         }
         else if (currentState == OvenState.Cooking)
         {
@@ -160,6 +167,45 @@ public class Oven : MonoBehaviour
         {
             // Debug.Log("Oven is off."); 
             GetComponent<LeanWindow>().TurnOn();
+        }
+    }
+
+    public IEnumerator FoodPickedUp(FoodButton food)
+    {
+        var fx = FoodPickedUpFX.transform.Find("FX").GetComponent<ParticleSystem>();
+        var bread = FoodPickedUpFX.transform.Find("Bread").GetComponent<Image>();
+        var text = FoodPickedUpFX.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "+1 " + food.foodName;
+
+        if (fx != null && bread != null)
+        {
+            fx.Play();
+            bread.sprite = food.foodImage;
+            FoodPickedUpFX.SetActive(true);
+            FoodPickedUpFX.transform.localScale = Vector3.zero; // Start from scale 0
+
+            // Chain tweens: scale up, boing boing, then scale back to 0
+            FoodPickedUpFX.transform.DOScale(Vector3.one * 1.5f, 0.5f)
+                .SetEase(Ease.OutBounce)
+                .OnComplete(() =>
+                {
+                    FoodPickedUpFX.transform.DOScale(Vector3.one, 0.5f)
+                        .SetLoops(2, LoopType.Yoyo)
+                        .OnComplete(() =>
+                        {
+                            FoodPickedUpFX.transform.DOScale(Vector3.zero, 0.5f)
+                                .SetEase(Ease.InBack)
+                                .OnComplete(() =>
+                                {
+                                    FoodPickedUpFX.SetActive(false);
+                                });
+                        });
+                });
+
+            yield return new WaitForSeconds(3f);
+        }
+        else
+        {
+            Debug.LogError("FX or Bread component is missing.");
         }
     }
 }

@@ -27,7 +27,7 @@ Oh No mein Bagueette
     <<AddFood Baguette>> // Case Sensitive
     <<jump debugtest2>>
 -> i will Remove Bagueette
-    <<RemoveFood Bagueette>>
+    <<RemoveFood Baguette>>
     <<jump debugtest2>>
 -> I will check if the order is correct
     <<jump debugtest2>>

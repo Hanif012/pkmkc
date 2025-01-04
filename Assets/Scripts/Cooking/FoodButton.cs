@@ -47,6 +47,7 @@ public class FoodButton : MonoBehaviour
 
     public void BakeFood()
     {
+        oven.GetComponent<LeanWindow>().TurnOff();
         oven.AddFoodToOven(this); // Ensure food is added to the oven
         oven.StartCooking(this);
     }

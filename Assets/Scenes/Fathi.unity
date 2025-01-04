@@ -1482,6 +1482,7 @@ MonoBehaviour:
   contentPanel: {fileID: 1278543214}
   ovenStateText: {fileID: 239931048}
   FoodCooked: {fileID: 0}
+  FoodPickedUpFX: {fileID: 1225890259}
   cookingTime: 10
   cookingSpeed: 1
   OvenButton: {fileID: 0}
@@ -1773,7 +1774,7 @@ GameObject:
   - component: {fileID: 207816824}
   - component: {fileID: 207816823}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3036,7 +3037,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005649006, y: -0.0043640137}
+  m_AnchoredPosition: {x: -0.0005649006, y: -0.0043029785}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &346274835
@@ -6625,6 +6626,7 @@ MonoBehaviour:
   contentPanel: {fileID: 346274834}
   ovenStateText: {fileID: 421521150}
   FoodCooked: {fileID: 0}
+  FoodPickedUpFX: {fileID: 1225890259}
   cookingTime: 10
   cookingSpeed: 1
   OvenButton: {fileID: 0}
@@ -7089,6 +7091,7 @@ MonoBehaviour:
   contentPanel: {fileID: 2108426582}
   ovenStateText: {fileID: 1815936877}
   FoodCooked: {fileID: 0}
+  FoodPickedUpFX: {fileID: 1225890259}
   cookingTime: 10
   cookingSpeed: 1
   OvenButton: {fileID: 0}
@@ -9541,7 +9544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1225890260
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9554,8 +9557,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2117884948}
   - {fileID: 1632239466}
+  - {fileID: 2117884948}
   - {fileID: 207816822}
   m_Father: {fileID: 8252189469282661824}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9793,7 +9796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005649006, y: -0.0043640137}
+  m_AnchoredPosition: {x: -0.0005649006, y: -0.0043029785}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1278543215
@@ -10327,10 +10330,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9144540493384991204, guid: 09ee501c197b44229b8de422eb1cbfc3,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9144540493384991205, guid: 09ee501c197b44229b8de422eb1cbfc3,
         type: 3}
       propertyPath: m_Name
-      value: Fx_Shines_Light02
+      value: FX
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16175,7 +16183,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005649006, y: -0.0043640137}
+  m_AnchoredPosition: {x: -0.0005649006, y: -0.0043029785}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2108426583
@@ -16235,7 +16243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2117884948
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16252,8 +16260,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 400}
+  m_AnchoredPosition: {x: -20, y: 0}
+  m_SizeDelta: {x: 284.1832, y: 284.1832}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2117884949
 MonoBehaviour:
@@ -16275,7 +16283,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e7e3e7f2286500741a1ca4554fba552d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16679,7 +16687,7 @@ RectTransform:
   m_GameObject: {fileID: 9182927424182729627}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0.01, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7601938459058133975}
@@ -17022,9 +17030,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9182927424182729627}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!224 &380228395296443805
 RectTransform:
@@ -18536,7 +18544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fd146527b61614a96da3a84e74ad78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  on: 0
+  on: 1
   turnOffSiblings: 0
   onTransitions:
     speed: 5
@@ -18642,6 +18650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isStrukButton: 0
   ReceiptText: {fileID: 0}
+  something: {fileID: 0}
   orderDetails:
     Date: 2024-04-14
     OrderNo: 1
@@ -19096,7 +19105,7 @@ MonoBehaviour:
   onNonInteractable:
     m_PersistentCalls:
       m_Calls: []
-  expectedInteractable: 0
+  expectedInteractable: 1
   requiredButtons: -1
   multiDown: 0
   dragThreshold: 10
@@ -19974,6 +19983,11 @@ PrefabInstance:
       propertyPath: messages
       value: 
       objectReference: {fileID: 1370987833811977149}
+    - target: {fileID: 8964316949169385772, guid: e246482f35d7ef149803f68c5e4e2210,
+        type: 3}
+      propertyPath: BakeFinished
+      value: 
+      objectReference: {fileID: 1225890259}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -22967,6 +22981,7 @@ MonoBehaviour:
   contentPanel: {fileID: 8473543139970125735}
   ovenStateText: {fileID: 2213085032517434467}
   FoodCooked: {fileID: 0}
+  FoodPickedUpFX: {fileID: 1225890259}
   cookingTime: 10
   cookingSpeed: 1
   OvenButton: {fileID: 0}
@@ -27427,7 +27442,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1406466875273661841}
   m_HandleRect: {fileID: 8043457094824255257}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -30575,7 +30590,7 @@ MonoBehaviour:
   onNonInteractable:
     m_PersistentCalls:
       m_Calls: []
-  expectedInteractable: 0
+  expectedInteractable: 1
   requiredButtons: -1
   multiDown: 0
   dragThreshold: 10
@@ -31393,7 +31408,7 @@ MonoBehaviour:
   onNonInteractable:
     m_PersistentCalls:
       m_Calls: []
-  expectedInteractable: 0
+  expectedInteractable: 1
   requiredButtons: -1
   multiDown: 0
   dragThreshold: 10
@@ -32778,7 +32793,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00087306363, y: -0.005511449}
+  m_AnchoredPosition: {x: 0.00087306363, y: -0.0091529535}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6893320640870095872
@@ -36261,7 +36276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005649006, y: -0.0043640137}
+  m_AnchoredPosition: {x: -0.0005649006, y: -0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8484058070949920868
