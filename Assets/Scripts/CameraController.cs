@@ -5,31 +5,52 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public GameObject MenuCamera;
+    public GameObject MainCamera;
+    public GameObject OvenCamera;
 
-    private bool test = true;
+
+    private bool MenuCheck = true;
+
+    private bool OvenCheck = false;
     void Start()
     {
         
     }
 
-    public void Menu()
+    public void MenuCam()
     {
-        MenuCamera.SetActive(true);
-        test = true;
-    }
-    private void PlayGame()
-    {
-        MenuCamera.SetActive(false);
-        test = false;
+        if(MenuCheck)
+        {
+            MenuCamera.SetActive(false);
+        }
+        else
+        {
+            MenuCamera.SetActive(true);
+        }
     }
 
+    public void OvenCam()
+    {
+        if(OvenCheck)
+        {
+            OvenCamera.SetActive(false);
+            MainCamera.SetActive(true);
+            OvenCheck = false;
+        }
+        else
+        {
+            OvenCamera.SetActive(true);
+            MainCamera.SetActive(false);
+            OvenCheck = true;
+        }        
+    }
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            if(test)
+            if(MenuCheck)
             {
-                PlayGame();
+                MenuCam();
             }
         }
     }

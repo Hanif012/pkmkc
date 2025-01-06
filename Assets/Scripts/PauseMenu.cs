@@ -70,6 +70,6 @@ public class PauseMenu : MonoBehaviour
         PauseButton.SetActive(true);
         Time.timeScale = 1f;
         GamePaused = false;
-        cameraController.Menu();
+        cameraController.MenuCam();
     }
 }
