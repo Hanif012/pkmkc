@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public interface ITimeObserver
 {
@@ -14,11 +15,10 @@ public class GameTime : MonoBehaviour
     [SerializeField]private int minute;
     [SerializeField]private int totalTime;
     [SerializeField]public readonly int timeIncrement = 3;
+    public DateTime dateTime;
 
     private List<ITimeObserver> observers = new List<ITimeObserver>();
     private float elapsedTime = 0f; // Keeps track of time
-
-
     public int Hour => hour; // Read-only property for hour
     public int Minute => minute; // Read-only property for minute
     public int TotalTime => totalTime; // Read-only property for total time
