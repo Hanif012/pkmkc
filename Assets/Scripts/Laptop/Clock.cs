@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,10 @@ public class Clock : MonoBehaviour, ITimeObserver
     private float elapsedTime = 0f;
     private bool showColon = true; // Controls whether to show the colon or not
 
+    void Awake()
+    {
+          
+    }
     void Start()
     {
         if (timeText == null)
@@ -56,4 +61,15 @@ public class Clock : MonoBehaviour, ITimeObserver
         string colon = showColon ? ":" : " "; // Show colon or blank space
         timeText.text = $"{_hour:00}{colon}{_minute:00}"; // Update the time display with/without colon
     }
+
+    public string StringGetTime()
+    {
+        return timeText.text;
+    }
+
+    public DateTime GetTime()
+    {
+        return DateTime.Today.AddHours(_hour).AddMinutes(_minute);
+    }
+
 }

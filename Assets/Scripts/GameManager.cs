@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject laptop;
     [SerializeField] private Bank bank;
     [SerializeField] private GameObject messages;
+    [SerializeField] private Clock clock; // Add reference to Clock
+    [SerializeField] private string NoRekening = "1234567890";
+    [SerializeField] private string PlayerName = "Budi";
 
     // Remove the ovens array
     // [SerializeField] private Oven[] ovens;
@@ -72,20 +75,8 @@ public class GameManager : MonoBehaviour
             bank = FindAnyObjectByType<Bank>();
         }
 
-        // if (orderClass == null)
-        // {
-        //     if (FindAnyObjectByType<OrderClass>() != null)
-        //     {
-        //         Debug.LogError("OrderClass component is missing.");
-        //         orderClass = FindAnyObjectByType<OrderClass>();
-        //     }
-        //     else
-        //     {
-        //         // Debug.LogError("OrderClass component is missing and no OrderClass object found in the scene. Crreating a new OrderClass object."); //TODO: Create a new OrderClass object
-        //         GameObject orderClassObject = new GameObject("OrderClass");
-        //         orderClass = orderClassObject.AddComponent<OrderClass>();
-        //     }
-        // }
+        GetCurrentTime();
+        GetCurrentDate();
     }
 
     private void Start()
@@ -105,6 +96,12 @@ public class GameManager : MonoBehaviour
             {
                 Debug.LogError("Message component is missing on the messages GameObject.");
             }
+        }
+
+        if (clock == null)
+        {
+            Debug.LogError("Clock component is missing.");
+            clock = FindAnyObjectByType<Clock>();
         }
 
         AssignFoodSO();
@@ -184,14 +181,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddOrder(Food food, int count)
+    // We did a little trolling
+    public string GetCurrentDate()
     {
-        if (orders.Count > 0)
+        Debug.Log("Current date: " + System.DateTime.Now.ToString("dd/MM/yyyy"));
+        Debug.Log("Daily mission date: " + System.DateTime.Now.AddDays(dailyMission.missionDay - 1).ToString("dd/MM/yyyy"));
+        return System.DateTime.Now.AddDays(dailyMission.missionDay - 1).ToString("dd/MM/yyyy");
+    }
+
+    public string GetCurrentTime()
+    {
+        if (clock != null)
         {
-            orders[0].AddOrder(food, count);
+            return clock.StringGetTime();
+        }
+        else
+        {
+            Debug.LogError("Clock component is missing.");
+            return string.Empty;
         }
     }
 
+    public string GetRekening()
+    {
+        return NoRekening;
+    }
+
+    public string GetPlayerName()
+    {
+        return PlayerName;
+    }
     // [YarnCommand("DepositToBank")]
     // public void DepositToBank(int amount)
     // {

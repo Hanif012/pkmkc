@@ -2,51 +2,42 @@ using UnityEngine;
 using TMPro;
 using System.Globalization;
 using System;
-    public class ReceiptReceive
-    {
-        public string ReceiverName { get; set; } // e.g., IDM QRIS LIVIN
-        public string ReceiverLocation { get; set; } // e.g., Jakarta Utara - ID
 
-        // Transaction Details
-        public DateTime TransactionDate { get; set; } // e.g., 2 Dec 2024
-        public TimeSpan TransactionTime { get; set; } // e.g., 21:20:25 WIB
-        public decimal TransactionAmount { get; set; } // e.g., Rp 12,600.00
-        public string ReferenceNumber { get; set; } // e.g., 412020635687
-        public string QRISReferenceNumber { get; set; } // e.g., 433721959758
-        public string MerchantPAN { get; set; } // e.g., 9360000071017497204
-        public string CustomerPAN { get; set; } // e.g., 93600000812105306036
+public class ReceiptReceive
+{
+    public string ReceiverName { get; set; }
+    public string ReceiverLocation { get; set; }
+    public DateTime TransactionDate { get; set; }
+    public TimeSpan TransactionTime { get; set; }
+    public decimal TransactionAmount { get; set; }
+    public string ReferenceNumber { get; set; }
+    public string QRISReferenceNumber { get; set; }
+    public string MerchantPAN { get; set; }
+    public string CustomerPAN { get; set; }
+    public string AcquirerBank { get; set; }
+    public string TerminalID { get; set; }
+    public string CustomerName { get; set; }
+    public string CustomerAccount { get; set; }
+}
 
-        // Acquirer Details
-        public string AcquirerBank { get; set; } // e.g., Bank Mandiri
-        public string TerminalID { get; set; } // e.g., 73369767
+public class ReceiptSend
+{
+    public string ProviderName { get; set; }
+    public string ProviderAccount { get; set; }
+    public DateTime TransactionDate { get; set; }
+    public TimeSpan TransactionTime { get; set; }
+    public decimal TopUpAmount { get; set; }
+    public decimal TransactionFee { get; set; }
+    public decimal TotalTransactionAmount { get; set; }
+    public string ReferenceNumber { get; set; }
+    public string CustomerName { get; set; }
+    public string CustomerAccount { get; set; }
+}
 
-        // Source Details
-        public string CustomerName { get; set; } // e.g., FATHI NAUFAL HANIF
-        public string CustomerAccount { get; set; } // e.g., ****0603
-    }
 
 
-    public class ReceiptSend
-    {
-        public string ProviderName { get; set; } // e.g., PLN Prabayar
-        public string ProviderAccount { get; set; } // e.g., ****1012
-
-        // Transaction Details
-        public DateTime TransactionDate { get; set; } // e.g., 1 Jan 2025
-        public TimeSpan TransactionTime { get; set; } // e.g., 13:55:18 WIB
-        public decimal TopUpAmount { get; set; } // e.g., Rp 100,000.00
-        public decimal TransactionFee { get; set; } // e.g., Rp 3,500.00
-        public decimal TotalTransactionAmount { get; set; } // e.g., Rp 103,500.00
-        public string ReferenceNumber { get; set; } // e.g., 702501011355131131
-
-        // Customer Details
-        public string CustomerName { get; set; } // e.g., FATHI NAUFAL HANIF
-        public string CustomerAccount { get; set; } // e.g., ****0603
-    }
 public class Bank : MonoBehaviour
 {
-
-
     [SerializeField] private GameObject StrukBeli;
     [SerializeField] private GameObject StrukJual;
     [SerializeField] private GameObject prefabBankButton;
@@ -54,42 +45,46 @@ public class Bank : MonoBehaviour
     public int balance = 100000;
     public TextMeshProUGUI balanceText;
 
-    enum ReceiptType
+    public GameManager gameManager;
+    public void Awake()
     {
-        BELI,
-        JUAL,
-        NULL
+        if(StrukBeli == null)
+        {
+            Debug.Log("StrukBeli is null");
+        }
+
+        if(StrukJual == null)
+        {
+            Debug.Log("StrukJual is null");
+        }
     }
-
-    private ReceiptType receiptType = ReceiptType.NULL;
-
     void Start()
     {
         FetchBalance();
     }
 
-    public void Deposit(int amount, string Sender)
+    public void Deposit(int amount, string Sender, string SenderAccount)
     {
         if (amount < 0)
         {
             Debug.Log("Invalid amount.");
             return;
         }
+        CreateBankButton(Sender, amount, "Deposit", );
         balance += amount;
         UpdateBalance(Sender);
     }
 
-    public bool Withdraw(int amount, string message)
+    public bool Withdraw(int amount, string message, string Receiver, string ReceiverAccount)
     {
         if (balance < amount)
         {
-            Debug.Log("Insufficient fundss.");
+            Debug.Log("Insufficient funds.");
             balance -= amount;
-            // TODO: Possible State Change
             UpdateBalance(message);
             return false;
         }
-
+        
         balance -= amount;
         UpdateBalance(message);
         return true;
@@ -103,36 +98,13 @@ public class Bank : MonoBehaviour
 
     private void UpdateBalance(string message)
     {
-        // string formattedBalance = balance.ToString("#,0", new CultureInfo("id-ID"));
-        // balanceText.text = $"Balance:\nRp {formattedBalance}";
-
-        // GameObject bankButton = Instantiate(prefabBankButton, transform);
-        // bankButton.GetComponent<StrukButton>()
+        string formattedBalance = balance.ToString("#,0", new CultureInfo("id-ID"));
+        balanceText.text = $"Balance:\nRp {formattedBalance}";
     }
 
-    public void OnBankButtonClicked()
+    private void CreateBankButton(string provider, string providerAccount, int nominal, string transactionType)
     {
-        Debug.Log("Bank button clicked.");
-        transform.SetAsLastSibling();
-    }
-
-    private void ReceiptSelection()
-    {
-        switch (receiptType)
-        {
-            case ReceiptType.BELI:
-                StrukBeli.SetActive(true);
-                StrukJual.SetActive(false);
-                break;
-            case ReceiptType.JUAL:
-                StrukJual.SetActive(true);
-                StrukBeli.SetActive(false);
-                break;
-            case ReceiptType.NULL:
-                StrukBeli.SetActive(false);
-                StrukJual.SetActive(false);
-                // Debug.Log("Receipt not Selected");
-                break;
-        }
+        GameObject bankButton = Instantiate(prefabBankButton, transform);
+        bankButton.GetComponent<BankPress>().GenerateReceipt(provider, providerAccount, nominal, transactionType);
     }
 }
