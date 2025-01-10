@@ -17,6 +17,10 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject MenuCanvas;
 
+    public GameObject SettingsCanvas;
+
+    public GameObject CreditCanvas;
+
     void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<NewAudioManager>();
@@ -25,7 +29,7 @@ public class PauseMenu : MonoBehaviour
     }
     void Update()
     {
-        if(MenuCanvas.gameObject.activeSelf)
+        if(MenuCanvas.gameObject.activeSelf || SettingsCanvas.gameObject.activeSelf || CreditCanvas.gameObject.activeSelf)
        {
             
        }
