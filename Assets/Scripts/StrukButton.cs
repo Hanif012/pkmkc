@@ -44,13 +44,15 @@ public class BankPress : MonoBehaviour
     public Bank bank;
     GameManager gameManager;
 
+    [SerializeField] public string ButtonTextString = "DateHere";
     [SerializeField] public GameObject StrukBeli;
     [SerializeField] public GameObject StrukJual;
     Transaction transaksi;
 
     void Awake()
     {
-        ButtonText = transform.GetComponentInChildren<Text>();
+        
+
         if (bank == null)
         {
             bank = FindObjectOfType<Bank>();
@@ -71,6 +73,11 @@ public class BankPress : MonoBehaviour
         }
 
         CreateReceipt(receiptType);
+
+        if (ButtonText == null)
+        {
+            ButtonText.text =  transaksi.time + transaksi.date;
+        }
     }
     
 
@@ -116,11 +123,25 @@ public class BankPress : MonoBehaviour
         }
     }
 
-
-
+    //Deposit
+    public void StrukJualActive(StrukData data)
+    {
+        // StrukJual.transform.Find("Header").GetComponent<TextMeshProUGUI>().text = data.Header;
+        StrukJual.transform.Find("CustomerName").GetComponent<TextMeshProUGUI>().text = data.CustomerName;
+        StrukJual.transform.Find("Statement").GetComponent<TextMeshProUGUI>().text = data.Statement;
+        StrukJual.transform.Find("Penyedia Jasa").GetComponent<TextMeshProUGUI>().text = data.PenyediaJasa;
+        StrukJual.transform.Find("ProviderName").GetComponent<TextMeshProUGUI>().text = data.ProviderName;
+        StrukJual.transform.Find("ProviderAccount").GetComponent<TextMeshProUGUI>().text = data.ProviderAccount;
+        StrukJual.transform.Find("Transaction").GetComponent<TextMeshProUGUI>().text = data.Transaction;
+        StrukJual.transform.Find("Statement1").GetComponent<TextMeshProUGUI>().text = data.Statement1;
+        StrukJual.transform.Find("CustomerName1").GetComponent<TextMeshProUGUI>().text = data.CustomerName1;
+        StrukJual.transform.Find("CustomerAccount").GetComponent<TextMeshProUGUI>().text = data.CustomerAccount;
+        Debug.Log("StrukJualActive");
+    }
+    //Withdraw
     public void StrukBeliActive(StrukData data)
     {
-        StrukBeli.transform.Find("Header").GetComponent<TextMeshProUGUI>().text = data.Header;
+        // StrukBeli.transform.Find("Header").GetComponent<TextMeshProUGUI>().text = data.Header;
         StrukBeli.transform.Find("CustomerName").GetComponent<TextMeshProUGUI>().text = data.CustomerName;
         StrukBeli.transform.Find("Statement").GetComponent<TextMeshProUGUI>().text = data.Statement;
         StrukBeli.transform.Find("Penyedia Jasa").GetComponent<TextMeshProUGUI>().text = data.PenyediaJasa;
@@ -135,10 +156,24 @@ public class BankPress : MonoBehaviour
 
     public void onClick()
     {
-        // GenerateReceipt();
         Debug.Log("Struk button pressed.");
-    }
+        if (receiptType == ReceiptType.BELI)
+        {
+            StrukBeli.SetActive(true);
+            StrukJual.SetActive(false);
+        }
+        else if (receiptType == ReceiptType.JUAL)
+        {
+            StrukBeli.SetActive(false);
+            StrukJual.SetActive(true);
 
+        }
+        else
+        {
+            StrukBeli.SetActive(false);
+            StrukJual.SetActive(false);
+        }
+    }
     
     public void GenerateReceipt(string provider, string providerAccount, int nominal, string additionalInfo)
     {
@@ -156,7 +191,7 @@ public class BankPress : MonoBehaviour
                           "Waktu\t\t: " + transaksi.time + "\n" +
                         //   "Nominal\t\t: " + nominal + "\n" +
                         //   "Biaya\t\t: " + "Rp 0" + "\n" +
-                          "Total\t\t: " + "Rp " + nominal + "\n" +
+                          "Total\t\t\t: " + "Rp " + nominal + "\n" +
                           "No. Ref\t\t: " + transaksi.noRef,
 
             Statement1 = "Rekening Sumber",
@@ -164,21 +199,22 @@ public class BankPress : MonoBehaviour
             CustomerAccount = "Costumer Account " + CensorRekening(GameManager.Instance.GetRekening()),
         };
         
-        if (additionalInfo == "Top-up")
+        if (additionalInfo == "Deposit")
         {
-            StrukBeliActive(strukData);
+            receiptType = ReceiptType.JUAL;
+            StrukJualActive(strukData);
+            Debug.Log("Deposit");
         }
         else if (additionalInfo == "Withdraw")
         {
+            receiptType = ReceiptType.BELI;
             StrukBeliActive(strukData);
+            Debug.Log("Withdraw");
         }
         else
         {
             Debug.LogError("Invalid additional info.");
         }
-
-        //StrukBeli
-
     }
 
     public void TransactionData(int total)

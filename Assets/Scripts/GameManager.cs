@@ -74,6 +74,11 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Bank component is missing.");
             bank = FindAnyObjectByType<Bank>();
         }
+        if(clock == null)
+        {
+            Debug.LogError("Clock component is missing.");
+            clock = FindAnyObjectByType<Clock>();
+        }
 
         GetCurrentTime();
         GetCurrentDate();

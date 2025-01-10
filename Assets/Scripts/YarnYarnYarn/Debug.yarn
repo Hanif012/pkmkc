@@ -17,6 +17,8 @@ please dont scam e
 title: debugtest2
 tags:
 ---
+/// The name of the player.
+<<declare $playerName = "Scammer">>
 <<Them>>
 I will scam you
 <<Me>>
@@ -35,9 +37,9 @@ Oh No mein Bagueette
     // <<AddOrder Baguette>>
     <<jump debugtest2>>
 -> I will scam you remove 100
-    <<Withdraw 100>>
+    <<Withdraw 100 {$playerName} 1010010101>>>>
     <<jump debugtest2>>
 -> I will scam you add 100
-    <<Deposit 100>> // Dont do "Deposit amount=100" wont WORK
+    <<Deposit 100 {$playerName} 1010010101>> // Dont do "Deposit amount=100" wont WORK
     <<jump debugtest2>>
 ===

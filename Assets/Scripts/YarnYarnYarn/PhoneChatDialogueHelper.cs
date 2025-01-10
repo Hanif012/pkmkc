@@ -29,6 +29,10 @@ namespace Yarn.Unity.Example
         int PaddingLeft = 0;
         int PaddingRight = 0;
 
+        // Game Manager
+
+        GameManager gameManager;
+
         void Awake()
         {
             var padding = dialogueBubblePrefab.GetComponent<HorizontalLayoutGroup>();
@@ -37,12 +41,14 @@ namespace Yarn.Unity.Example
             runner = GetComponent<DialogueRunner>();
             runner.AddCommandHandler("Me", SetSenderMe); 
             runner.AddCommandHandler("Them", SetSenderThem); 
-            runner.AddCommandHandler<int,string>("Deposit", DepositMoney); 
-            runner.AddCommandHandler<int,string>("Withdraw", WithdrawMoney);
+            runner.AddCommandHandler<int,string,string>("Deposit", DepositMoney); 
+            runner.AddCommandHandler<int,string,string>("Withdraw", WithdrawMoney);
             runner.AddCommandHandler<string>("AddOrder", AddOrder);
             runner.AddCommandHandler<string>("AddFood", AddFood);
             runner.AddCommandHandler<string>("RemoveFood", RemoveFood);
             optionsContainer.SetActive(false);
+
+            gameManager = FindObjectOfType<GameManager>();
         }
 
         void Start () 
@@ -67,12 +73,12 @@ namespace Yarn.Unity.Example
             currentTextColor = Color.black;
         }
 
-        public void DepositMoney(int amount, string message)
+        public void DepositMoney(int amount, string senderName, string senderAccount)
         {
-            FindObjectOfType<Bank>().Deposit(amount, message);
+            FindObjectOfType<Bank>().Deposit(amount, senderName, senderAccount);
         }
 
-        public void WithdrawMoney(int amount, string message)
+        public void WithdrawMoney(int amount, string receiverName, string receiverAccount )
         {
             var bank =  FindObjectOfType<Bank>();
             if(bank == null)
@@ -80,25 +86,7 @@ namespace Yarn.Unity.Example
                 Debug.Log("Bank not found.");
                 return;
             }
-            if(bank.Withdraw(amount, message))
-            {
-                Debug.Log("Withdrawn " + amount + " from bank.");
-            }
-            else
-            {
-                Debug.Log("Insufficient funds.");
-            }
-        }
-
-        public void WithdrawMoneyMessage(int amount, string message)
-        {
-            var bank =  FindObjectOfType<Bank>();
-            if(bank == null)
-            {
-                Debug.Log("Bank not found.");
-                return;
-            }
-            if(bank.Withdraw(amount, message))
+            if(bank.Withdraw(amount, receiverName, receiverAccount))
             {
                 Debug.Log("Withdrawn " + amount + " from bank.");
             }

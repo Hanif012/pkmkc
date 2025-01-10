@@ -3,37 +3,6 @@ using TMPro;
 using System.Globalization;
 using System;
 
-public class ReceiptReceive
-{
-    public string ReceiverName { get; set; }
-    public string ReceiverLocation { get; set; }
-    public DateTime TransactionDate { get; set; }
-    public TimeSpan TransactionTime { get; set; }
-    public decimal TransactionAmount { get; set; }
-    public string ReferenceNumber { get; set; }
-    public string QRISReferenceNumber { get; set; }
-    public string MerchantPAN { get; set; }
-    public string CustomerPAN { get; set; }
-    public string AcquirerBank { get; set; }
-    public string TerminalID { get; set; }
-    public string CustomerName { get; set; }
-    public string CustomerAccount { get; set; }
-}
-
-public class ReceiptSend
-{
-    public string ProviderName { get; set; }
-    public string ProviderAccount { get; set; }
-    public DateTime TransactionDate { get; set; }
-    public TimeSpan TransactionTime { get; set; }
-    public decimal TopUpAmount { get; set; }
-    public decimal TransactionFee { get; set; }
-    public decimal TotalTransactionAmount { get; set; }
-    public string ReferenceNumber { get; set; }
-    public string CustomerName { get; set; }
-    public string CustomerAccount { get; set; }
-}
-
 
 
 public class Bank : MonoBehaviour
@@ -41,7 +10,7 @@ public class Bank : MonoBehaviour
     [SerializeField] private GameObject StrukBeli;
     [SerializeField] private GameObject StrukJual;
     [SerializeField] private GameObject prefabBankButton;
-
+    [SerializeField] private GameObject ButtonContainer;
     public int balance = 100000;
     public TextMeshProUGUI balanceText;
 
@@ -70,23 +39,24 @@ public class Bank : MonoBehaviour
             Debug.Log("Invalid amount.");
             return;
         }
-        CreateBankButton(Sender, amount, "Deposit", );
+        CreateBankButton(Sender, SenderAccount, amount, "Deposit");
         balance += amount;
-        UpdateBalance(Sender);
+        UpdateBalance();
     }
 
-    public bool Withdraw(int amount, string message, string Receiver, string ReceiverAccount)
+    public bool Withdraw(int amount, string Receiver, string ReceiverAccount)
     {
         if (balance < amount)
         {
             Debug.Log("Insufficient funds.");
             balance -= amount;
-            UpdateBalance(message);
+            UpdateBalance();
             return false;
         }
-        
+
+        CreateBankButton(Receiver, ReceiverAccount, amount, "Withdraw");
         balance -= amount;
-        UpdateBalance(message);
+        UpdateBalance();
         return true;
     }
 
@@ -96,7 +66,7 @@ public class Bank : MonoBehaviour
         balanceText.text = $"Balance:\nRp {formattedBalance}";
     }
 
-    private void UpdateBalance(string message)
+    private void UpdateBalance()
     {
         string formattedBalance = balance.ToString("#,0", new CultureInfo("id-ID"));
         balanceText.text = $"Balance:\nRp {formattedBalance}";
@@ -104,7 +74,7 @@ public class Bank : MonoBehaviour
 
     private void CreateBankButton(string provider, string providerAccount, int nominal, string transactionType)
     {
-        GameObject bankButton = Instantiate(prefabBankButton, transform);
+        GameObject bankButton = Instantiate(prefabBankButton, ButtonContainer.transform);
         bankButton.GetComponent<BankPress>().GenerateReceipt(provider, providerAccount, nominal, transactionType);
     }
 }
