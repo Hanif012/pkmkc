@@ -23231,7 +23231,7 @@ PrefabInstance:
         type: 3}
       propertyPath: foodSO
       value: 
-      objectReference: {fileID: 11400000, guid: f4c7d079ffc450145b70120ed2f33db4,
+      objectReference: {fileID: 11400000, guid: 0073a8dd602ed504b9273a5ad52284cf,
         type: 2}
     - target: {fileID: 8964316949169385772, guid: e246482f35d7ef149803f68c5e4e2210,
         type: 3}
@@ -23248,6 +23248,12 @@ PrefabInstance:
       propertyPath: BakeFinished
       value: 
       objectReference: {fileID: 1225890259}
+    - target: {fileID: 8964316949169385772, guid: e246482f35d7ef149803f68c5e4e2210,
+        type: 3}
+      propertyPath: dailyMission
+      value: 
+      objectReference: {fileID: 11400000, guid: a8c32711279fa9e49ad6a4abf2a3c46a,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -35886,7 +35892,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00087306363, y: -0.011410694}
+  m_AnchoredPosition: {x: 0.00087306363, y: -0.0077743637}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6893320640870095872
