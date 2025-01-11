@@ -64,7 +64,7 @@ public class Clock : MonoBehaviour, ITimeObserver
 
     public string StringGetTime()
     {
-        return timeText.text;
+        return _hour + ":" + _minute;
     }
 
     public DateTime GetTime()

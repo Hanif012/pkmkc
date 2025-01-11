@@ -75,6 +75,7 @@ public class Bank : MonoBehaviour
     private void CreateBankButton(string provider, string providerAccount, int nominal, string transactionType)
     {
         GameObject bankButton = Instantiate(prefabBankButton, ButtonContainer.transform);
+        bankButton.SetActive(true);
 
         BankPress bankPress = bankButton.GetComponent<BankPress>();
         if (bankPress != null)
