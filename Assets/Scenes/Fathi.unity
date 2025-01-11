@@ -3729,7 +3729,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005649006, y: -0.001159668}
+  m_AnchoredPosition: {x: -0.0005649006, y: -0.0012817383}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &346274835
@@ -11504,7 +11504,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005649006, y: -0.001159668}
+  m_AnchoredPosition: {x: -0.0005649006, y: -0.0012817383}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1278543215
@@ -19474,7 +19474,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0005649006, y: -0.001159668}
+  m_AnchoredPosition: {x: -0.0005649006, y: -0.0012817383}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2108426583
@@ -31095,9 +31095,9 @@ RectTransform:
   - {fileID: 6739324477736619631}
   m_Father: {fileID: 169723876}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 234.57, y: -50}
   m_SizeDelta: {x: 469.14, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4738536619849251512
@@ -35886,7 +35886,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00087306363, y: -0.006598696}
+  m_AnchoredPosition: {x: 0.00087306363, y: -0.011410694}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6893320640870095872
@@ -39665,7 +39665,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &8588128134857642797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39678,15 +39678,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84de4b8c99c96d248b583641c7bf6f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  receiptType: 2
   isStrukButton: 0
   ButtonText: {fileID: 4834876986584645479}
   bank: {fileID: 2281831670618750104}
-  ButtonTextString: DateHere
   StrukBeli: {fileID: 440688597}
   StrukJual: {fileID: 765070976}
-  ScrollContent: {fileID: 0}
-  TransactionItems: []
 --- !u!1 &8600076723387665253
 GameObject:
   m_ObjectHideFlags: 0
