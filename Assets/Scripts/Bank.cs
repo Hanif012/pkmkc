@@ -75,6 +75,16 @@ public class Bank : MonoBehaviour
     private void CreateBankButton(string provider, string providerAccount, int nominal, string transactionType)
     {
         GameObject bankButton = Instantiate(prefabBankButton, ButtonContainer.transform);
-        bankButton.GetComponent<BankPress>().GenerateReceipt(provider, providerAccount, nominal, transactionType);
+
+        BankPress bankPress = bankButton.GetComponent<BankPress>();
+        if (bankPress != null)
+        {
+            bankPress.GenerateReceipt(provider, providerAccount, nominal, transactionType);
+        }
+        else
+        {
+            Debug.LogError("BankPress component not found on instantiated button.");
+        }
     }
+
 }

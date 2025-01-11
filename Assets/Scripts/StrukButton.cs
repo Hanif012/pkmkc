@@ -6,7 +6,7 @@ using System.Globalization;
 
 public class BankPress : MonoBehaviour
 {
-    public class Transaction
+    private class Transaction
     {
         public string date;
         public string time;
@@ -16,15 +16,15 @@ public class BankPress : MonoBehaviour
         public string noRef;
     }
 
-    public enum ReceiptType
+    private enum ReceiptType
     {
         BELI,
         JUAL,
         NULL
     }
 
-    public ReceiptType receiptType = ReceiptType.NULL;
-    public class StrukData
+    private ReceiptType receiptType = ReceiptType.NULL;
+    private class StrukData
     {
         public string Header;
         public string CustomerName;
@@ -44,10 +44,10 @@ public class BankPress : MonoBehaviour
     public Bank bank;
     GameManager gameManager;
 
-    [SerializeField] public string ButtonTextString = "DateHere";
     [SerializeField] public GameObject StrukBeli;
     [SerializeField] public GameObject StrukJual;
     Transaction transaksi;
+    StrukData strukData;
 
     void Awake()
     {
@@ -74,19 +74,14 @@ public class BankPress : MonoBehaviour
 
         CreateReceipt(receiptType);
 
-        if (ButtonText == null)
-        {
-            ButtonText.text =  transaksi.time + transaksi.date;
-        }
+        
     }
+
     
 
     void Start()
     {
-        if (ButtonText != null)
-        {
-            ButtonText.text = "Struk";
-        }
+        ButtonText.text =  transaksi.time + " " + transaksi.date;
         if(ReceiptType.BELI == receiptType)
         {
             StrukBeli.SetActive(true);
@@ -124,7 +119,7 @@ public class BankPress : MonoBehaviour
     }
 
     //Deposit
-    public void StrukJualActive(StrukData data)
+    private void StrukJualActive(StrukData data)
     {
         // StrukJual.transform.Find("Header").GetComponent<TextMeshProUGUI>().text = data.Header;
         StrukJual.transform.Find("CustomerName").GetComponent<TextMeshProUGUI>().text = data.CustomerName;
@@ -139,7 +134,7 @@ public class BankPress : MonoBehaviour
         Debug.Log("StrukJualActive");
     }
     //Withdraw
-    public void StrukBeliActive(StrukData data)
+    private void StrukBeliActive(StrukData data)
     {
         // StrukBeli.transform.Find("Header").GetComponent<TextMeshProUGUI>().text = data.Header;
         StrukBeli.transform.Find("CustomerName").GetComponent<TextMeshProUGUI>().text = data.CustomerName;
@@ -161,15 +156,18 @@ public class BankPress : MonoBehaviour
         {
             StrukBeli.SetActive(true);
             StrukJual.SetActive(false);
+            StrukBeliActive(strukData);
         }
         else if (receiptType == ReceiptType.JUAL)
         {
             StrukBeli.SetActive(false);
             StrukJual.SetActive(true);
+            StrukJualActive(strukData);
 
         }
         else
         {
+            Debug.Log("No receipt to show.");
             StrukBeli.SetActive(false);
             StrukJual.SetActive(false);
         }
@@ -178,7 +176,7 @@ public class BankPress : MonoBehaviour
     public void GenerateReceipt(string provider, string providerAccount, int nominal, string additionalInfo)
     {
         TransactionData(nominal);
-        StrukData strukData = new StrukData
+        strukData = new StrukData
         {
             Header = "Top-up Berhasil",
             CustomerName = "Halo " + GameManager.Instance.GetPlayerName().ToUpper(),
@@ -250,6 +248,12 @@ public class BankPress : MonoBehaviour
 
     public string GenerateReferenceNumber()
     {
-        return UnityEngine.Random.Range(1000000000, 9999999999).ToString();
+        System.Random random = new System.Random();
+        string referenceNumber = "";
+        for (int i = 0; i < 10; i++)
+        {
+            referenceNumber += random.Next(0, 10).ToString();
+        }
+        return referenceNumber;
     }
 }
