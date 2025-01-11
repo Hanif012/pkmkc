@@ -8,50 +8,50 @@ public class CameraController : MonoBehaviour
     public GameObject MainCamera;
     public GameObject OvenCamera;
 
+    private enum CameraState
+    {
+        Menu,
+        Main,
+        Oven
+    }
 
-    private bool MenuCheck = true;
+    private CameraState currentCameraState = CameraState.Menu;
 
-    private bool OvenCheck = false;
     void Start()
     {
-        
+        UpdateCameraState();
     }
 
-    public void MenuCam()
+    public void ToggleMenuCam()
     {
-        if(MenuCheck)
-        {
-            MenuCamera.SetActive(false);
-        }
-        else
-        {
-            MenuCamera.SetActive(true);
-        }
+        currentCameraState = currentCameraState == CameraState.Menu ? CameraState.Main : CameraState.Menu;
+        UpdateCameraState();
     }
 
-    public void OvenCam()
+    public void ToggleOvenCam()
     {
-        if(OvenCheck)
-        {
-            OvenCamera.SetActive(false);
-            MainCamera.SetActive(true);
-            OvenCheck = false;
-        }
-        else
-        {
-            OvenCamera.SetActive(true);
-            MainCamera.SetActive(false);
-            OvenCheck = true;
-        }        
+        currentCameraState = currentCameraState == CameraState.Oven ? CameraState.Main : CameraState.Oven;
+        UpdateCameraState();
     }
+
+    private void UpdateCameraState()
+    {
+        MenuCamera.SetActive(currentCameraState == CameraState.Menu);
+        MainCamera.SetActive(currentCameraState == CameraState.Main);
+        OvenCamera.SetActive(currentCameraState == CameraState.Oven);
+    }
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            if(MenuCheck)
-            {
-                MenuCam();
-            }
+            ToggleMenuCam();
         }
+    }
+
+    public void ToggleMainCam()
+    {
+        currentCameraState = CameraState.Main;
+        UpdateCameraState();
     }
 }

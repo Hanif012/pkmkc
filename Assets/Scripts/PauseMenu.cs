@@ -52,8 +52,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        PauseMenuUI.SetActive(false);
-        PauseButton.SetActive(true);
+        // PauseMenuUI.SetActive(false);
+        // PauseButton.SetActive(true);
         Time.timeScale = 1f;
         GamePaused = false;
         audioManager.ResumeBackgroundMusic();
@@ -61,8 +61,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-        PauseMenuUI.SetActive(true);
-        PauseButton.SetActive(false);
+        // PauseMenuUI.SetActive(true);
+        // PauseButton.SetActive(false);
         Time.timeScale = 0f;
         GamePaused = true;
         audioManager.PauseBackgroundMusic();
@@ -70,10 +70,10 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
-        PauseMenuUI.SetActive(false);
-        PauseButton.SetActive(true);
+        // PauseMenuUI.SetActive(false);
+        // PauseButton.SetActive(true);
         Time.timeScale = 1f;
         GamePaused = false;
-        cameraController.MenuCam();
+        cameraController.ToggleMenuCam();
     }
 }
