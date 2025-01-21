@@ -35,17 +35,17 @@ public class PauseMenu : MonoBehaviour
        }
        else
        {
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                if(GamePaused)
-                {
-                    Resume();
-                }
-                else
-                {
-                   Pause();
-                }
-            }
+            // if(Input.GetKeyDown(KeyCode.Escape))
+            // {
+            //     if(GamePaused)
+            //     {
+            //         Resume();
+            //     }
+            //     else
+            //     {
+            //        Pause();
+            //     }
+            // }
        }
         
     }
